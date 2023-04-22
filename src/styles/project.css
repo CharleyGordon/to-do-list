@@ -1,0 +1,8 @@
+.project {
+  transition: 0.5s;
+  place-self: center;
+  /* scale: 0; */
+}
+.project:not(:target) {
+  scale: 0;
+}
