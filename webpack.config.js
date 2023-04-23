@@ -13,11 +13,13 @@ module.exports = {
     clean: true,
   },
 
+  devtool: "inline-source-map",
+
   devServer: {
     static: {
       directory: path.resolve(__dirname, "./dist"),
     },
-    port: 8080,
+    port: 5000,
     hot: true,
     open: true,
   },

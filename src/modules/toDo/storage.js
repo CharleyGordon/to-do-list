@@ -1,19 +1,11 @@
 const storage = {
-  projects: localStorage.getItem("projects") ?? {},
-  projectId: localStorage.getItem("projectId") ?? 1,
-  taskId: localStorage.getItem("taskId") ?? 1,
+  projects: JSON.parse(localStorage.getItem("projects")) ?? [],
 };
-export function updateProjectId() {
-  storage.projectId += 1;
-}
-export function updateTaskId() {
-  storage.taskId += 1;
-}
 
 export function saveProjects(projectsObject) {
   storage.projects = projectsObject;
-  updateProjectId();
-  updateTaskId();
+  const jsonProjects = JSON.stringify(storage.projects);
+  localStorage.setItem("projects", jsonProjects);
 }
 
 export default storage;
