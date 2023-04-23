@@ -2,55 +2,96 @@ import eventList from "../../../eventList";
 import pubsub from "../../pubsub/pubsub";
 import storage from "../storage";
 
+import * as Task from "../task/Task";
+
 const { projects } = storage;
 
-function task(taskProperties) {
-  const { objective, priority, dueDate, note } = taskProperties;
-  const id = crypto.randomUUID();
-  return {
-    id,
-    objective,
-    priority,
-    dueDate,
-    note,
-  };
+function uniqueProjectName(name) {
+  return !projects.find(function (projectObject) {
+    return projectObject.name === name;
+  });
 }
-
 function project(propertiesObject) {
   const { name, description } = propertiesObject;
-  const id = crypto.randomUUID();
+  if (!uniqueProjectName(name)) return;
   const tasks = [];
   return {
-    id,
     name,
     description,
     tasks,
   };
 }
-function getProjectById(desiredId) {
-  return projects.find((project) => (project.id = desiredId));
+function getProjectByName(projectName) {
+  return projects.find(function (projectObject) {
+    return projectObject.name === projectName;
+  });
 }
 
-function getProjectTasks(desiredId) {
-  return getProjectById(desiredId)?.tasks;
+function getProjectTasks(projectName) {
+  return getProjectByName(projectName)?.tasks;
 }
 
 function emittProjectsChanged(projectsObject) {
-  pubsub.publish(eventList.projectsChaneged, projectsObject);
+  pubsub.publish(eventList.projectsChanged, projectsObject);
 }
 
 export function addProject(propertiesObject) {
   projects.push(project(propertiesObject));
   emittProjectsChanged(projects);
-  console.dir(projects);
+}
+function findTask(taskArray, searchedId) {
+  return taskArray.find(function (currentTask) {
+    const currentId = currentTask.id;
+    return currentId === searchedId;
+  });
+}
+function findTaskInProject(projectName, taskId) {
+  const taskArray = getProjectTasks(projectName);
+  if (!taskArray) return;
+  const targetTask = findTask(taskArray, taskId);
+  return targetTask;
 }
 
-export function addTask(projectId, taskProperties) {
-  const projectTasks = getProjectTasks(projectId);
-  projectTasks.push(task(taskProperties));
-  console.dir(projects);
+export function addTask(projectName, taskProperties) {
+  const projectTasks = getProjectTasks(projectName);
+  projectTasks.push(Task.createTask(taskProperties));
+  emittProjectsChanged(projects);
 }
 
-// function addProject(propertiesObject) {
+export function changeTaskPriority(projectName, taskId, taskPriority) {
+  debugger;
+  // const projectTasks = getProjectTasks(projectName);
+  // const searchedTask = findTask(projectTasks, taskId);
+  const searchedTask = findTaskInProject(projectName, taskId);
+  if (!searchedTask) return;
+  Task.changeTaskPriority(searchedTask, taskPriority);
+  emittProjectsChanged(projects);
+}
 
-// }
+export function markTaskAsComplete(projectName, taskId) {
+  const searchedTask = findTaskInProject(projectName, taskId);
+  if (!searchedTask) return;
+  Task.completeTask(searchedTask);
+  emittProjectsChanged(projects);
+}
+
+export function markTaskAsUncomplete(projectName, taskId) {
+  const searchedTask = findTaskInProject(projectName, taskId);
+  if (!searchedTask) return;
+  Task.uncompleteTask(searchedTask);
+  emittProjectsChanged(projects);
+}
+
+export function toggleTaskCompleteState(projectName, taskId) {
+  const searchedTask = findTaskInProject(projectName, taskId);
+  if (!searchedTask) return;
+  Task.toggleTaskCompleted(searchedTask);
+  emittProjectsChanged(projects);
+}
+
+export function changeTaskObjective(projectName, taskId, newTaskObjective) {
+  const searchedTask = findTaskInProject(projectName, taskId);
+  if (!searchedTask) return;
+  Task.changeTaskObjective(searchedTask, newTaskObjective);
+  emittProjectsChanged(projects);
+}

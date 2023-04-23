@@ -4,7 +4,7 @@ const storage = {
 
 export function saveProjects(projectsObject) {
   storage.projects = projectsObject;
-  const jsonProjects = JSON.stringify(storage.projects);
+  const jsonProjects = JSON.stringify(projectsObject);
   localStorage.setItem("projects", jsonProjects);
 }
 
