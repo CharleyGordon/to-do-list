@@ -5,4 +5,8 @@ export default {
   taskToggled: "taskToggled",
   taskPriorityChanged: "taskPriorityChanged",
   taskObjectiveChanged: "taskObjectiveChanged",
+  DOM: {
+    projectAdded: "projectAdded",
+    taskAdded: "taskAdded",
+  },
 };

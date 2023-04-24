@@ -1,22 +1,17 @@
-<form class="add-project">
+<form class="project-adder">
   <fieldset>
     <legend>Add project</legend>
-    <label for="project-name"
-      >Name
-      <input
-        type="text"
-        name="project-name"
-        id="project-name"
-        required
-      /> </label
-    ><label for="project-description"
-      >Description<input
+    <label for="name"
+      >Name <input type="text" name="name" id="name" required /> </label
+    ><label for="description"
+      >Description<textarea
         type="text"
         name="note"
-        name="project-description"
-        id="project-description"
+        name="description"
+        id="description"
         required
-    /></label>
+      ></textarea>
+    </label>
     <button type="submit">Submit</button>
   </fieldset>
 </form>

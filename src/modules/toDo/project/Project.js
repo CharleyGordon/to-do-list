@@ -36,7 +36,10 @@ function emittProjectsChanged(projectsObject) {
 }
 
 export function addProject(propertiesObject) {
-  projects.push(project(propertiesObject));
+  // debugger;
+  const projectObject = project(propertiesObject);
+  if (!projectObject) return;
+  projects.push(projectObject);
   emittProjectsChanged(projects);
 }
 function findTask(taskArray, searchedId) {
