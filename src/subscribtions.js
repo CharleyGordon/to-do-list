@@ -5,6 +5,8 @@ import * as Task from "./modules/toDo/task/Task";
 import * as Project from "./modules/toDo/project/Project";
 import * as projectListFunctions from "./modules/DOM/projectList/projectListFunctions";
 
+import * as projectFucntions from "./modules/DOM/project/projectFunctions";
+
 pubsub.subscribe(eventList.projectsChanged, Storage.saveProjects);
 
 pubsub.subscribe(eventList.taskPriorityChanged, Project.changeTaskPriority);
@@ -21,10 +23,14 @@ pubsub.subscribe(
 
 pubsub.subscribe(
   eventList.DOM.startProjectsRender,
-  Storage.emittRenderProjects
+  Project.emittRenderProjects
 );
 
 pubsub.subscribe(
   eventList.DOM.renderProjects,
   projectListFunctions.renderAllProjects
 );
+
+pubsub.subscribe(eventList.DOM.findProject, Project.provideSearchedProject);
+
+pubsub.subscribe(eventList.DOM.projectFound, projectFucntions.renderProject);

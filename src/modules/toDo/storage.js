@@ -11,9 +11,9 @@ export function saveProjects(projectsObject) {
   localStorage.setItem("projects", jsonProjects);
 }
 
-export function emittRenderProjects() {
-  const projects = storage.projects;
-  pubsub.publish(eventList.DOM.renderProjects, projects);
-}
+// export function emittRenderProjects() {
+//   const projects = storage.projects;
+//   pubsub.publish(eventList.DOM.renderProjects, projects);
+// }
 
 export default storage;

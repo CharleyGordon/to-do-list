@@ -11,5 +11,7 @@ export default {
     projectApproved: "projectApproved",
     renderProjects: "renderProjects",
     startProjectsRender: "startProjectsRender",
+    findProject: "findProject",
+    projectFound: "projectFound",
   },
 };

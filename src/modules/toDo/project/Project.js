@@ -27,6 +27,13 @@ function getProjectByName(projectName) {
   });
 }
 
+export function provideSearchedProject(projectName) {
+  debugger;
+  const project = getProjectByName(projectName);
+  if (!project) return;
+  pubsub.publish(eventList.DOM.projectFound, project);
+}
+
 function getProjectTasks(projectName) {
   return getProjectByName(projectName)?.tasks;
 }
@@ -37,6 +44,10 @@ function emittProjectsChanged(projectsObject) {
 
 function emittProjectApproved(projectObject) {
   pubsub.publish(eventList.DOM.projectApproved, projectObject);
+}
+
+export function emittRenderProjects() {
+  pubsub.publish(eventList.DOM.renderProjects, projects);
 }
 
 export function addProject(propertiesObject) {

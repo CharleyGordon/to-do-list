@@ -5,6 +5,7 @@ import taskTemlate from "../../makup/task-template.html";
 import taskListTemplate from "../../makup/project-task-list-template.html";
 
 import * as ProjectAdderFunctions from "./projectAdder/ProjectAdderFunctions";
+import * as projectListFunctions from "./projectList/projectListFunctions";
 
 export default {
   project: {
@@ -23,7 +24,9 @@ export default {
   },
   projectList: {
     markup: projectListTemplate,
-    events: {},
+    events: {
+      click: [projectListFunctions.requestProject],
+    },
   },
   tasklist: {
     markup: taskListTemplate,
