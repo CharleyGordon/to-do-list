@@ -8,6 +8,10 @@ import initDOM from "./modules/DOM/initDOM";
 // DOM
 import DomElements from "./modules/DOM/DomElements";
 
+import { renderAllProjects } from "./modules/DOM/projectList/projectListFunctions";
+
 window.pubsub = pubsub;
 window.storage = storage;
 window.Project = Project;
+
+window.renderAllProjects = renderAllProjects;

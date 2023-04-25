@@ -33,8 +33,17 @@ function createProjectElement() {
   return project;
 }
 
+function createProjectListElement() {
+  const markup = elementsComposition.projectList.markup;
+  const eventsObject = elementsComposition.projectList.events;
+  const projectList = parseHtml(markup);
+  iterateEvents(projectList, eventsObject);
+  return projectList;
+}
+
 export default {
   content: createContentElement(),
   project: createProjectElement(),
   projectAdder: createProjectAdderElement(),
+  projectList: createProjectListElement(),
 };

@@ -35,12 +35,17 @@ function emittProjectsChanged(projectsObject) {
   pubsub.publish(eventList.projectsChanged, projectsObject);
 }
 
+function emittProjectApproved(projectObject) {
+  pubsub.publish(eventList.DOM.projectApproved, projectObject);
+}
+
 export function addProject(propertiesObject) {
-  // debugger;
+  debugger;
   const projectObject = project(propertiesObject);
   if (!projectObject) return;
   projects.push(projectObject);
   emittProjectsChanged(projects);
+  emittProjectApproved(projectObject);
 }
 function findTask(taskArray, searchedId) {
   return taskArray.find(function (currentTask) {

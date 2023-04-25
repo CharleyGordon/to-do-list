@@ -8,5 +8,8 @@ export default {
   DOM: {
     projectAdded: "projectAdded",
     taskAdded: "taskAdded",
+    projectApproved: "projectApproved",
+    renderProjects: "renderProjects",
+    startProjectsRender: "startProjectsRender",
   },
 };
