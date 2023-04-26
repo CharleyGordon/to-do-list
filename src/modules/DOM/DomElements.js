@@ -24,6 +24,14 @@ function createTaskElement() {
   return task;
 }
 
+function createTaskAdderElement() {
+  const markup = elementsComposition.taskAdder.markup;
+  const eventsObject = elementsComposition.taskAdder.events;
+  const taskAdder = parseHtml(markup);
+  iterateEvents(taskAdder, eventsObject);
+  return taskAdder;
+}
+
 function createTaskListElement() {
   const markup = elementsComposition.tasklist.markup;
   const eventsObject = elementsComposition.tasklist.events;
@@ -36,7 +44,9 @@ function createProjectElement() {
   const eventsObject = elementsComposition.project.events;
   const project = parseHtml(markup);
   iterateEvents(project, eventsObject);
+  const taskAdder = createTaskAdderElement();
   const taskList = createTaskListElement();
+  project.append(taskAdder);
   project.append(taskList);
   return project;
 }
@@ -53,6 +63,7 @@ export default {
   content: createContentElement(),
   project: createProjectElement(),
   projectAdder: createProjectAdderElement(),
+  // taskAdder: createTaskAdderElement(),
   projectList: createProjectListElement(),
   taskList: createTaskListElement(),
   task: createTaskElement(),

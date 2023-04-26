@@ -4,6 +4,7 @@ import DomElements from "./DomElements";
 
 const { content } = DomElements;
 const { projectAdder } = DomElements;
+// const { taskAdder } = DomElements;
 const { project } = DomElements;
 const { projectList } = DomElements;
 // debugger;

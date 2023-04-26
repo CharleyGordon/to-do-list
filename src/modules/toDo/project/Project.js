@@ -72,6 +72,7 @@ function findTaskInProject(projectName, taskId) {
 }
 
 export function addTask(projectName, taskProperties) {
+  debugger;
   const projectTasks = getProjectTasks(projectName);
   projectTasks.push(Task.createTask(taskProperties));
   emittProjectsChanged(projects);

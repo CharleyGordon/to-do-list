@@ -7,8 +7,10 @@ export default {
   taskObjectiveChanged: "taskObjectiveChanged",
   DOM: {
     projectAdded: "projectAdded",
-    taskAdded: "taskAdded",
+    requestTask: "queryTask", //find project name (projectFunctions)
+    addTask: "addTask",
     projectApproved: "projectApproved",
+    taskApproved: "taskApproved",
     renderProjects: "renderProjects",
     startProjectsRender: "startProjectsRender",
     findProject: "findProject",

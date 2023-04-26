@@ -3,9 +3,8 @@ import DomElements from "../DomElements";
 let taskListUl = document.getElementById("task-list");
 
 const taskTemplate = DomElements.task;
-export function appendToTaskList() {}
 
-function renderTask(taskObject) {
+export function renderTask(taskObject) {
   const { objective, priority, dueDate, note } = taskObject;
   const currentTask = taskTemplate.cloneNode("true");
 
@@ -15,8 +14,11 @@ function renderTask(taskObject) {
   currentTask.querySelector(".note").textContent = note;
   taskListUl.append(currentTask);
 }
-export function renderTasks(tasksArray) {
+export function renderAllTasks(tasksArray) {
   taskListUl = taskListUl ?? document.getElementById("task-list");
   taskListUl.innerHTML = "";
   tasksArray.forEach(renderTask);
 }
+// export function appendToTaskList(taskObject) {
+
+// }

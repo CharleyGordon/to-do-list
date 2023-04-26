@@ -1,11 +1,13 @@
 import projectTemplate from "../../makup/project-template.html";
 import projectAdderTemplate from "../../makup/project-adder-template.html";
+import projectTaskAdderTemplate from "../../makup/project-task-adder-template.html";
 import projectListTemplate from "../../makup/project-list-template.html";
 import taskTemlate from "../../makup/task-template.html";
 import taskListTemplate from "../../makup/project-task-list-template.html";
 
 import * as ProjectAdderFunctions from "./projectAdder/ProjectAdderFunctions";
 import * as projectListFunctions from "./projectList/projectListFunctions";
+import * as taskAdderFunctions from "./taskAdder/taskAdderFunctions";
 
 export default {
   project: {
@@ -20,6 +22,12 @@ export default {
     markup: projectAdderTemplate, // const projectAdder = p
     events: {
       submit: [ProjectAdderFunctions.requestAddProject],
+    },
+  },
+  taskAdder: {
+    markup: projectTaskAdderTemplate,
+    events: {
+      submit: [taskAdderFunctions.requestAddTask],
     },
   },
   projectList: {
