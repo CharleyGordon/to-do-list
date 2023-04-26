@@ -4,12 +4,12 @@ import pubsub from "../../pubsub/pubsub";
 import eventList from "../../../eventList";
 
 function createProjectListItem(projectProperties) {
-  const { name, description } = projectProperties;
+  const { name } = projectProperties;
   const projectListItem = parseHtml(projectListItemTemplate);
   const anchor = projectListItem.querySelector("a");
+  if (!anchor) return;
   anchor.dataset.project = `${name}`;
   projectListItem.querySelector(".name").textContent = name;
-  projectListItem.querySelector(".description").textContent = description;
   return projectListItem;
 }
 
@@ -31,6 +31,7 @@ export function requestProject(event) {
   debugger;
   const { target } = event;
   const anchor = target.closest("a");
+  if (!anchor) return;
   const projectName = anchor.dataset.project;
   pubsub.publish(eventList.DOM.findProject, projectName);
 }

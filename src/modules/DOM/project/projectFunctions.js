@@ -7,9 +7,10 @@ const { project } = DomElements;
 
 export function renderProject(projectObject) {
   debugger;
-  const { name, description } = projectObject;
+  const { name, description, tasks } = projectObject;
   const projectName = project.querySelector("#project-name");
   const projectDescription = project.querySelector("#project-description");
   projectName.textContent = name;
   projectDescription.textContent = description;
+  pubsub.publish(eventList.DOM.projectRendered, tasks);
 }

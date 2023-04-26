@@ -6,6 +6,7 @@ import * as Project from "./modules/toDo/project/Project";
 import * as projectListFunctions from "./modules/DOM/projectList/projectListFunctions";
 
 import * as projectFucntions from "./modules/DOM/project/projectFunctions";
+import * as taskListFunctions from "./modules/DOM/taskList/taskListFunctions";
 
 pubsub.subscribe(eventList.projectsChanged, Storage.saveProjects);
 
@@ -34,3 +35,5 @@ pubsub.subscribe(
 pubsub.subscribe(eventList.DOM.findProject, Project.provideSearchedProject);
 
 pubsub.subscribe(eventList.DOM.projectFound, projectFucntions.renderProject);
+
+pubsub.subscribe(eventList.DOM.projectRendered, taskListFunctions.renderTasks);

@@ -13,5 +13,6 @@ export default {
     startProjectsRender: "startProjectsRender",
     findProject: "findProject",
     projectFound: "projectFound",
+    projectRendered: "projectRendered",
   },
 };

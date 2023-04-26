@@ -16,6 +16,14 @@ function createProjectAdderElement() {
   return projectAdder;
 }
 
+function createTaskElement() {
+  const markup = elementsComposition.task.markup;
+  const eventsObject = elementsComposition.task.events;
+  const task = parseHtml(markup);
+  iterateEvents(task, eventsObject);
+  return task;
+}
+
 function createTaskListElement() {
   const markup = elementsComposition.tasklist.markup;
   const eventsObject = elementsComposition.tasklist.events;
@@ -46,4 +54,6 @@ export default {
   project: createProjectElement(),
   projectAdder: createProjectAdderElement(),
   projectList: createProjectListElement(),
+  taskList: createTaskListElement(),
+  task: createTaskElement(),
 };
