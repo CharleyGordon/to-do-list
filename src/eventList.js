@@ -9,8 +9,11 @@ export default {
     projectAdded: "projectAdded",
     requestTask: "queryTask", //find project name (projectFunctions)
     addTask: "addTask",
+    removeTask: "removeTask",
+    taskBubbled: "taskBubbled",
     projectApproved: "projectApproved",
     taskApproved: "taskApproved",
+    taskRemoved: "taskRemoved",
     renderProjects: "renderProjects",
     startProjectsRender: "startProjectsRender",
     findProject: "findProject",

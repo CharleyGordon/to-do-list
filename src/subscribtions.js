@@ -3,6 +3,8 @@ import eventList from "./eventList";
 import * as Storage from "./modules/toDo/storage";
 import * as Task from "./modules/toDo/task/Task";
 import * as Project from "./modules/toDo/project/Project";
+
+import * as taskFunctions from "./modules/DOM/task/taskFunctions";
 import * as projectListFunctions from "./modules/DOM/projectList/projectListFunctions";
 
 import * as projectFucntions from "./modules/DOM/project/projectFunctions";
@@ -46,5 +48,11 @@ pubsub.subscribe(
 pubsub.subscribe(eventList.DOM.requestTask, projectFucntions.approveTask);
 
 pubsub.subscribe(eventList.DOM.addTask, Project.addTask);
+
+pubsub.subscribe(eventList.DOM.taskBubbled, projectFucntions.queryRemoveTask);
+
+pubsub.subscribe(eventList.DOM.removeTask, Project.removeTask);
+
+pubsub.subscribe(eventList.DOM.taskRemoved, taskFunctions.removeTaskFromDom);
 
 pubsub.subscribe(eventList.DOM.taskApproved, taskListFunctions.renderTask);

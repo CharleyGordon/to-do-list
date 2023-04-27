@@ -5,7 +5,8 @@ import projectListTemplate from "../../makup/project-list-template.html";
 import taskTemlate from "../../makup/task-template.html";
 import taskListTemplate from "../../makup/project-task-list-template.html";
 
-import * as ProjectAdderFunctions from "./projectAdder/ProjectAdderFunctions";
+import * as taskFunctions from "./task/taskFunctions";
+import * as projectAdderFunctions from "./projectAdder/ProjectAdderFunctions";
 import * as projectListFunctions from "./projectList/projectListFunctions";
 import * as taskAdderFunctions from "./taskAdder/taskAdderFunctions";
 
@@ -16,12 +17,14 @@ export default {
   },
   task: {
     markup: taskTemlate,
-    events: {},
+    events: {
+      submit: [taskFunctions.bubbleRemoveTask],
+    },
   },
   projectAdder: {
     markup: projectAdderTemplate, // const projectAdder = p
     events: {
-      submit: [ProjectAdderFunctions.requestAddProject],
+      submit: [projectAdderFunctions.requestAddProject],
     },
   },
   taskAdder: {

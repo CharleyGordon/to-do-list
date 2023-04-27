@@ -150,4 +150,5 @@ export function removeTask(projectName, taskId) {
   if (targetProjectIndex < 0 || !projectTasks) return;
   projectTasks.splice(targetProjectIndex, 1);
   emittProjectsChanged(projects);
+  pubsub.publish(eventList.DOM.taskRemoved, taskId);
 }

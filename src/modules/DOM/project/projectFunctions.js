@@ -28,4 +28,17 @@ export function approveTask(taskProperties) {
   pubsub.publish(eventList.DOM.taskApproved, taskProperties);
 }
 
+function appendProjectName(taskId) {
+  const projectName = provideProjectName();
+  return {
+    projectName,
+    taskId,
+  };
+}
+
+export function queryRemoveTask(providedId) {
+  const { projectName, taskId } = appendProjectName(providedId);
+  pubsub.publish(eventList.DOM.removeTask, projectName, taskId);
+}
+
 // export function approveTask

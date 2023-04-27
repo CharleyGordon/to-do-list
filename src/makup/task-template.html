@@ -3,6 +3,12 @@
     <summary class="objective">objective</summary>
     <span class="priority">Priority</span> <span class="due-date">Due date</span
     ><textarea class="note">Note</textarea>
-    <a class="remove-task">Remove task</a>
+    <form>
+      <fieldset>
+        <legend>Manage task:</legend>
+        <button type="submit" data-action="remove">Remove task</button>
+        <button type="submit" data-action="change">Change Task</button>
+      </fieldset>
+    </form>
   </details>
 </li>
