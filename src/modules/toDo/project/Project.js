@@ -27,6 +27,12 @@ function getProjectByName(projectName) {
   });
 }
 
+function getProjectIndexByName(projectName) {
+  return projects.findIndex(function (projectObject) {
+    return projectObject.name === projectName;
+  });
+}
+
 export function provideSearchedProject(projectName) {
   debugger;
   const project = getProjectByName(projectName);
@@ -58,8 +64,22 @@ export function addProject(propertiesObject) {
   emittProjectsChanged(projects);
   emittProjectApproved(projectObject);
 }
+
+export function deleteProject(projectName) {
+  const searchedProjectIndex = getProjectIndexByName(projectName);
+  if (searchedProjectIndex < 0) return;
+  projects.splice(searchedProjectIndex, 1);
+  emittProjectsChanged(projects);
+}
+
 function findTask(taskArray, searchedId) {
   return taskArray.find(function (currentTask) {
+    const currentId = currentTask.id;
+    return currentId === searchedId;
+  });
+}
+function findTaskIndex(taskArray, searchedId) {
+  return taskArray.findIndex(function (currentTask) {
     const currentId = currentTask.id;
     return currentId === searchedId;
   });
@@ -69,6 +89,13 @@ function findTaskInProject(projectName, taskId) {
   if (!taskArray) return;
   const targetTask = findTask(taskArray, taskId);
   return targetTask;
+}
+
+function findTaskIndexInProject(projectName, taskId) {
+  const taskArray = getProjectTasks(projectName);
+  if (!taskArray) return;
+  const targetTaskIndex = findTaskIndex(taskArray, taskId);
+  return targetTaskIndex;
 }
 
 export function addTask(projectName, taskProperties) {
@@ -113,5 +140,14 @@ export function changeTaskObjective(projectName, taskId, newTaskObjective) {
   const searchedTask = findTaskInProject(projectName, taskId);
   if (!searchedTask) return;
   Task.changeTaskObjective(searchedTask, newTaskObjective);
+  emittProjectsChanged(projects);
+}
+
+export function removeTask(projectName, taskId) {
+  debugger;
+  const projectTasks = getProjectTasks(projectName);
+  const targetProjectIndex = findTaskIndexInProject(projectName, taskId);
+  if (targetProjectIndex < 0 || !projectTasks) return;
+  projectTasks.splice(targetProjectIndex, 1);
   emittProjectsChanged(projects);
 }

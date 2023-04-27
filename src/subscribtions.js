@@ -36,7 +36,7 @@ pubsub.subscribe(eventList.DOM.findProject, Project.provideSearchedProject);
 
 pubsub.subscribe(eventList.DOM.projectFound, projectFucntions.renderProject);
 
-pubsub.subscribe(eventList.DOM.projectApproved, taskListFunctions.renderTask);
+// pubsub.subscribe(eventList.DOM.projectApproved, taskListFunctions.renderTask);
 
 pubsub.subscribe(
   eventList.DOM.projectRendered,

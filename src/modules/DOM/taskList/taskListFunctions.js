@@ -5,9 +5,10 @@ let taskListUl = document.getElementById("task-list");
 const taskTemplate = DomElements.task;
 
 export function renderTask(taskObject) {
-  const { objective, priority, dueDate, note } = taskObject;
+  debugger;
+  const { id, objective, priority, dueDate, note } = taskObject;
   const currentTask = taskTemplate.cloneNode("true");
-
+  currentTask.dataset.id = id;
   currentTask.querySelector(".objective").textContent = objective;
   currentTask.querySelector(".priority").textContent = priority;
   currentTask.querySelector(".due-date").textContent = dueDate;
@@ -15,6 +16,7 @@ export function renderTask(taskObject) {
   taskListUl.append(currentTask);
 }
 export function renderAllTasks(tasksArray) {
+  if (tasksArray.length === 0) return;
   taskListUl = taskListUl ?? document.getElementById("task-list");
   taskListUl.innerHTML = "";
   tasksArray.forEach(renderTask);
