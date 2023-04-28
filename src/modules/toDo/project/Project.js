@@ -101,8 +101,10 @@ function findTaskIndexInProject(projectName, taskId) {
 export function addTask(projectName, taskProperties) {
   debugger;
   const projectTasks = getProjectTasks(projectName);
-  projectTasks.push(Task.createTask(taskProperties));
+  const newTask = Task.createTask(taskProperties);
+  projectTasks.push(newTask);
   emittProjectsChanged(projects);
+  pubsub.publish(eventList.DOM.taskApproved, newTask);
 }
 
 export function changeTaskPriority(projectName, taskId, taskPriority) {

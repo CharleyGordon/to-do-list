@@ -25,7 +25,7 @@ export function approveTask(taskProperties) {
   const projectName = provideProjectName();
   if (!projectName) return;
   pubsub.publish(eventList.DOM.addTask, projectName, taskProperties);
-  pubsub.publish(eventList.DOM.taskApproved, taskProperties);
+  // pubsub.publish(eventList.DOM.taskApproved, taskProperties);
 }
 
 function appendProjectName(taskId) {
