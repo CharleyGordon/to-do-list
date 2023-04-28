@@ -6,6 +6,7 @@ import taskTemlate from "../../makup/task-template.html";
 import taskListTemplate from "../../makup/project-task-list-template.html";
 
 import * as taskFunctions from "./task/taskFunctions";
+import * as projectFunctions from "./project/projectFunctions";
 import * as projectAdderFunctions from "./projectAdder/ProjectAdderFunctions";
 import * as projectListFunctions from "./projectList/projectListFunctions";
 import * as taskAdderFunctions from "./taskAdder/taskAdderFunctions";
@@ -13,12 +14,14 @@ import * as taskAdderFunctions from "./taskAdder/taskAdderFunctions";
 export default {
   project: {
     markup: projectTemplate,
-    events: {},
+    events: {
+      click: [projectFunctions.bubbleRemoveTask],
+    },
   },
   task: {
     markup: taskTemlate,
     events: {
-      submit: [taskFunctions.bubbleRemoveTask],
+      // submit: [taskFunctions.bubbleRemoveTask],
     },
   },
   projectAdder: {

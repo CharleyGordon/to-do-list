@@ -28,6 +28,21 @@ export function approveTask(taskProperties) {
   // pubsub.publish(eventList.DOM.taskApproved, taskProperties);
 }
 
+function startBubbleTask(targetElement) {
+  debugger;
+  const taskElement = targetElement.closest(".task");
+  const taskId = taskElement.dataset.id;
+  if (!taskId) return;
+  pubsub.publish(eventList.DOM.taskBubbled, taskId);
+}
+export function bubbleRemoveTask(event) {
+  // event.preventDefault();
+  debugger;
+  const { target } = event;
+  if (target.dataset.action !== "remove") return;
+  startBubbleTask(target);
+}
+
 function appendProjectName(taskId) {
   const projectName = provideProjectName();
   return {

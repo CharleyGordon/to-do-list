@@ -1,13 +1,14 @@
 <li class="task">
   <details data-grid>
     <summary class="objective">objective</summary>
-    <span class="priority">Priority</span> <span class="due-date">Due date</span
-    ><textarea class="note">Note</textarea>
+    <label> Priority: <input type="number" class="priority" readonly /> </label>
+    <label> Due Date: <input class="due-date" readonly /></label>
+    <textarea class="note" readonly>Note</textarea>
     <form>
       <fieldset>
         <legend>Manage task:</legend>
-        <button type="submit" data-action="remove">Remove task</button>
-        <button type="submit" data-action="change">Change Task</button>
+        <a data-action="remove">Remove task</a>
+        <a data-action="change">Change Task</a>
       </fieldset>
     </form>
   </details>
