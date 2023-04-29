@@ -27,10 +27,10 @@ export function renderTask(taskObject) {
   const currentTask = taskTemplate.cloneNode("true");
   iterateEvents(currentTask, taskEvents);
   currentTask.dataset.id = id;
-  currentTask.querySelector(".objective").textContent = objective;
-  currentTask.querySelector(".priority").value = priority;
-  currentTask.querySelector(".due-date").value = dueDate;
-  currentTask.querySelector(".note").value = note;
+  currentTask.querySelector(`[name="objective"]`).value = objective;
+  currentTask.querySelector(`[name="priority"]`).value = priority;
+  currentTask.querySelector(`[name="due-date"]`).value = dueDate;
+  currentTask.querySelector(`[name="note"]`).value = note;
   bindInitialValues(currentTask);
   taskListUl.append(currentTask);
 }

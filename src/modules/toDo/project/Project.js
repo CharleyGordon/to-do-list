@@ -81,6 +81,7 @@ function findTaskIndex(taskArray, searchedId) {
   });
 }
 function findTaskInProject(projectName, taskId) {
+  debugger;
   const taskArray = getProjectTasks(projectName);
   if (!taskArray) return;
   const targetTask = findTask(taskArray, taskId);
@@ -141,12 +142,13 @@ export function changeTaskObjective(projectName, taskId, newTaskObjective) {
   emittProjectsChanged(projects);
 }
 
-// export function replaceTask(projectName, taskId, taskObject) {
-//   const projectTasks = getProjectTasks(projectName);
-//   const taskIndex = findTaskIndexInProject(projectName, taskId);
-//   if (!taskIndex) return;
-//   projectTasks[taskIndex] = taskObject;
-// }
+export function replaceTask(projectName, taskId, taskObject) {
+  debugger;
+  const task = findTaskInProject(projectName, taskId);
+  if (!task) return;
+  Object.assign(task, taskObject);
+  emittProjectsChanged(projects);
+}
 
 export function removeTask(projectName, taskId) {
   debugger;

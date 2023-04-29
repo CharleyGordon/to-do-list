@@ -1,6 +1,7 @@
 import eventList from "../../../eventList";
 import pubsub from "../../pubsub/pubsub";
 import DomElements from "../DomElements";
+import { camelize } from "../../camelize";
 
 const { project } = DomElements;
 // const { taskList } = DomElements;
@@ -28,10 +29,6 @@ export function approveTask(taskProperties) {
   // pubsub.publish(eventList.DOM.taskApproved, taskProperties);
 }
 
-function getSubmitter(event) {
-  return event.submitter;
-}
-
 function getTaskElement(targetElement) {
   const taskElement = targetElement.closest(".task");
   return taskElement;
@@ -39,18 +36,6 @@ function getTaskElement(targetElement) {
 
 function toggleEditClass(taskElement) {
   taskElement.classList.toggle("editing");
-}
-
-export function markAsEditing(event) {
-  const submitter = getSubmitter(event);
-  const { target } = event;
-  const taskElement = getTaskElement(target);
-  if (
-    !submitter.matches(':is([name="change"], [name="save"], [name="restore"])')
-  ) {
-    return;
-  }
-  toggleEditClass(taskElement);
 }
 
 function getTaskId(taskElement) {
@@ -68,13 +53,6 @@ function startBubbleTask(targetElement) {
   const taskId = getTaskElementId(targetElement);
   if (!taskId) return;
   pubsub.publish(eventList.DOM.taskBubbled, taskId);
-}
-export function bubbleRemoveTask(event) {
-  event.preventDefault();
-  // debugger;
-  const subbmitter = getSubmitter(event);
-  if (subbmitter.name !== "remove") return;
-  startBubbleTask(subbmitter);
 }
 
 function fieldsAreReadOnly(fieldArray) {
@@ -111,15 +89,6 @@ function toggleChange(taskElement) {
   return decideAboutChange(editableFields);
 }
 
-export function handleChangeTask(event) {
-  debugger;
-  event.preventDefault();
-  const subbmitter = getSubmitter(event);
-  if (subbmitter.name !== "change") return;
-  const taskElement = getTaskElement(subbmitter);
-  toggleChange(taskElement);
-}
-
 function appendProjectName(taskId) {
   const projectName = provideProjectName();
   return {
@@ -133,4 +102,106 @@ export function queryRemoveTask(providedId) {
   pubsub.publish(eventList.DOM.removeTask, projectName, taskId);
 }
 
+// function fieldChanged(field) {
+//   return field.value !== field.dataset.initialValue;
+// }
+
+// function collectChangedFields(fieldArray) {
+//   return fieldArray.reduce((accumulator, fieldElement) => {
+//     if (fieldChanged(fieldElement)) accumulator.push(fieldElement);
+//     return accumulator;
+//   });
+// }
+// up to this works
+function returnTaskEditables(event) {
+  debugger;
+  const { target } = event;
+  const taskElement = getTaskElement(target);
+  const editables = collectEditables(taskElement);
+  return editables;
+}
+function getFieldName(field) {
+  return camelize(field.name);
+}
+function getFieldValue(field) {
+  return field.value;
+}
+function getFieldsValues(changedFields) {
+  const changedValues = {};
+  changedFields.forEach((field) => {
+    const name = getFieldName(field);
+    const value = getFieldValue(field);
+    changedValues[name] = value;
+  });
+  return changedValues;
+}
+function collectEditableProperties(event) {
+  debugger;
+  const editables = returnTaskEditables(event);
+  const properties = getFieldsValues(editables);
+  return properties;
+}
+
+// function trackChanges(event) {
+//   debugger;
+//   try {
+//     const { target } = event;
+//     const taskElement = getTaskElement(target);
+//     const editables = collectEditables(taskElement);
+//     const changedFields = collectChangedFields(editables);
+//     const changedValues = getChangedFieldsValues(changedFields);
+//     return changedValues;
+//   } catch {
+//     return false;
+//   }
+// }
+
+//event functions
+function getSubmitter(event) {
+  return event.submitter;
+}
+export function markAsEditing(event) {
+  const submitter = getSubmitter(event);
+  const { target } = event;
+  const taskElement = getTaskElement(target);
+  if (
+    !submitter.matches(':is([name="change"], [name="save"], [name="restore"])')
+  ) {
+    return;
+  }
+  toggleEditClass(taskElement);
+}
+export function bubbleRemoveTask(event) {
+  event.preventDefault();
+  // debugger;
+  const subbmitter = getSubmitter(event);
+  if (subbmitter.name !== "remove") return;
+  startBubbleTask(subbmitter);
+}
+export function handleChangeTask(event) {
+  debugger;
+  event.preventDefault();
+  const subbmitter = getSubmitter(event);
+  if (subbmitter.name !== "change") return;
+  const taskElement = getTaskElement(subbmitter);
+  toggleChange(taskElement);
+}
+
+export function saveChanges(event) {
+  event.preventDefault();
+  debugger;
+  const subbmitter = getSubmitter(event);
+  if (subbmitter.name !== "save") return;
+  const taskElement = getTaskElement(subbmitter);
+  const taskId = getTaskId(taskElement);
+  const projectName = provideProjectName();
+  const newProperties = collectEditableProperties(event);
+  pubsub.publish(eventList.DOM.taskChanged, projectName, taskId, newProperties);
+}
+
+// export function saveChanges(event) {
+//   const changesObject = trackChanges(event);
+//   if (!changesObject) return;
+
+// }
 // export function approveTask

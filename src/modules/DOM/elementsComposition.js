@@ -19,6 +19,7 @@ export default {
         projectFunctions.bubbleRemoveTask,
         projectFunctions.handleChangeTask,
         projectFunctions.markAsEditing,
+        projectFunctions.saveChanges,
       ],
     },
   },

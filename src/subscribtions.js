@@ -56,3 +56,5 @@ pubsub.subscribe(eventList.DOM.removeTask, Project.removeTask);
 pubsub.subscribe(eventList.DOM.taskRemoved, taskFunctions.removeTaskFromDom);
 
 pubsub.subscribe(eventList.DOM.taskApproved, taskListFunctions.renderTask);
+
+pubsub.subscribe(eventList.DOM.taskChanged, Project.replaceTask);

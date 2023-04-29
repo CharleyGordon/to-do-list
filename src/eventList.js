@@ -19,5 +19,6 @@ export default {
     findProject: "findProject",
     projectFound: "projectFound",
     projectRendered: "projectRendered",
+    taskChanged: "taskChanged",
   },
 };

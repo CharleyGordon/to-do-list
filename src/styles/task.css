@@ -1,3 +1,6 @@
 .task:not(.editing) :is([name="save"], [name="restore"]) {
   display: none;
 }
+.task details * {
+  width: 100%;
+}

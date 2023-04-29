@@ -1,11 +1,16 @@
 <li class="task">
   <details data-grid>
-    <summary class="objective">objective</summary>
+    <summary>
+      <textarea class="editable" name="objective" readonly>objective</textarea>
+    </summary>
     <label>
-      Priority: <input type="number" class="priority editable" readonly />
+      Priority:
+      <input type="number" name="priority" class="editable" readonly />
     </label>
-    <label> Due Date: <input class="due-date editable" readonly /></label>
-    <textarea class="note editable" readonly>Note</textarea>
+    <label>
+      Due Date: <input type="date" name="due-date" class="editable" readonly
+    /></label>
+    <textarea name="note" class="editable" readonly>Note</textarea>
     <form>
       <fieldset>
         <legend>Manage task:</legend>
