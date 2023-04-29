@@ -36,6 +36,22 @@ function getTaskElement(targetElement) {
   const taskElement = targetElement.closest(".task");
   return taskElement;
 }
+
+function toggleEditClass(taskElement) {
+  taskElement.classList.toggle("editing");
+}
+
+export function markAsEditing(event) {
+  const submitter = getSubmitter(event);
+  const { target } = event;
+  const taskElement = getTaskElement(target);
+  if (
+    !submitter.matches(':is([name="change"], [name="save"], [name="restore"])')
+  )
+    return;
+  toggleEditClass(taskElement);
+}
+
 function getTaskId(taskElement) {
   const taskId = taskElement?.dataset.id;
   return taskId;
@@ -89,6 +105,7 @@ function collectEditables(taskElement) {
 
 function toggleChange(taskElement) {
   if (!taskElement) return;
+  // toggleEditClass(taskElement);
   const editableFields = collectEditables(taskElement);
   return decideAboutChange(editableFields);
 }

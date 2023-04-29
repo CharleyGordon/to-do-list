@@ -18,6 +18,7 @@ export default {
       submit: [
         projectFunctions.bubbleRemoveTask,
         projectFunctions.handleChangeTask,
+        projectFunctions.markAsEditing,
       ],
     },
   },
