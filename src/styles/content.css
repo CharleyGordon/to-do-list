@@ -3,11 +3,11 @@
 #content {
   display: grid;
 }
-#content > * {
+/* #content > * {
   position: absolute;
 
   grid-row: 1;
   grid-column: 1;
 
   justify-self: center;
-}
+} */

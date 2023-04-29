@@ -3,6 +3,6 @@
   place-self: center;
   /* scale: 0; */
 }
-.project:not(:target) {
+/* .project:not(:target) {
   scale: 0;
-}
+} */

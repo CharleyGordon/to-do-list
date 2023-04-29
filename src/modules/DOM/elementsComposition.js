@@ -15,7 +15,7 @@ export default {
   project: {
     markup: projectTemplate,
     events: {
-      click: [
+      submit: [
         projectFunctions.bubbleRemoveTask,
         projectFunctions.handleChangeTask,
       ],

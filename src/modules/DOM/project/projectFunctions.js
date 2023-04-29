@@ -28,6 +28,10 @@ export function approveTask(taskProperties) {
   // pubsub.publish(eventList.DOM.taskApproved, taskProperties);
 }
 
+function getSubmitter(event) {
+  return event.submitter;
+}
+
 function getTaskElement(targetElement) {
   const taskElement = targetElement.closest(".task");
   return taskElement;
@@ -49,11 +53,11 @@ function startBubbleTask(targetElement) {
   pubsub.publish(eventList.DOM.taskBubbled, taskId);
 }
 export function bubbleRemoveTask(event) {
-  // event.preventDefault();
+  event.preventDefault();
   // debugger;
-  const { target } = event;
-  if (target.dataset.action !== "remove") return;
-  startBubbleTask(target);
+  const subbmitter = getSubmitter(event);
+  if (subbmitter.name !== "remove") return;
+  startBubbleTask(subbmitter);
 }
 
 function fieldsAreReadOnly(fieldArray) {
@@ -90,9 +94,11 @@ function toggleChange(taskElement) {
 }
 
 export function handleChangeTask(event) {
-  const { target } = event;
-  if (target.dataset.action !== "change") return;
-  const taskElement = getTaskElement(target);
+  debugger;
+  event.preventDefault();
+  const subbmitter = getSubmitter(event);
+  if (subbmitter.name !== "change") return;
+  const taskElement = getTaskElement(subbmitter);
   toggleChange(taskElement);
 }
 
