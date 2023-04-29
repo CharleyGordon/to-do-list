@@ -7,9 +7,7 @@ import * as Task from "../task/Task";
 const { projects } = storage;
 
 function uniqueProjectName(name) {
-  return !projects.find(function (projectObject) {
-    return projectObject.name === name;
-  });
+  return !projects.find((projectObject) => projectObject.name === name);
 }
 function project(propertiesObject) {
   const { name, description } = propertiesObject;
@@ -22,15 +20,13 @@ function project(propertiesObject) {
   };
 }
 function getProjectByName(projectName) {
-  return projects.find(function (projectObject) {
-    return projectObject.name === projectName;
-  });
+  return projects.find((projectObject) => projectObject.name === projectName);
 }
 
 function getProjectIndexByName(projectName) {
-  return projects.findIndex(function (projectObject) {
-    return projectObject.name === projectName;
-  });
+  return projects.findIndex(
+    (projectObject) => projectObject.name === projectName
+  );
 }
 
 export function provideSearchedProject(projectName) {
@@ -73,13 +69,13 @@ export function deleteProject(projectName) {
 }
 
 function findTask(taskArray, searchedId) {
-  return taskArray.find(function (currentTask) {
+  return taskArray.find((currentTask) => {
     const currentId = currentTask.id;
     return currentId === searchedId;
   });
 }
 function findTaskIndex(taskArray, searchedId) {
-  return taskArray.findIndex(function (currentTask) {
+  return taskArray.findIndex((currentTask) => {
     const currentId = currentTask.id;
     return currentId === searchedId;
   });
@@ -144,6 +140,13 @@ export function changeTaskObjective(projectName, taskId, newTaskObjective) {
   Task.changeTaskObjective(searchedTask, newTaskObjective);
   emittProjectsChanged(projects);
 }
+
+// export function replaceTask(projectName, taskId, taskObject) {
+//   const projectTasks = getProjectTasks(projectName);
+//   const taskIndex = findTaskIndexInProject(projectName, taskId);
+//   if (!taskIndex) return;
+//   projectTasks[taskIndex] = taskObject;
+// }
 
 export function removeTask(projectName, taskId) {
   debugger;
