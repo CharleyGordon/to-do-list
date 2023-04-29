@@ -15,14 +15,15 @@ export default {
   project: {
     markup: projectTemplate,
     events: {
-      click: [projectFunctions.bubbleRemoveTask],
+      click: [
+        projectFunctions.bubbleRemoveTask,
+        projectFunctions.handleChangeTask,
+      ],
     },
   },
   task: {
     markup: taskTemlate,
-    events: {
-      // submit: [taskFunctions.bubbleRemoveTask],
-    },
+    events: {},
   },
   projectAdder: {
     markup: projectAdderTemplate, // const projectAdder = p
