@@ -47,8 +47,9 @@ export function markAsEditing(event) {
   const taskElement = getTaskElement(target);
   if (
     !submitter.matches(':is([name="change"], [name="save"], [name="restore"])')
-  )
+  ) {
     return;
+  }
   toggleEditClass(taskElement);
 }
 
