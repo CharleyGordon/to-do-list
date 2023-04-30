@@ -184,19 +184,30 @@ export function handleChangeTask(event) {
   const subbmitter = getSubmitter(event);
   if (subbmitter.name !== "change") return;
   const taskElement = getTaskElement(subbmitter);
-  toggleChange(taskElement);
-}
 
+  toggleChange(taskElement);
+  console.log("task readonly state changed");
+}
+function emittTaskChanged(event) {
+  debugger;
+  const { target } = event;
+  const taskElement = getTaskElement(target);
+  const taskId = getTaskId(taskElement);
+  const projectName = provideProjectName();
+  const newProperties = collectEditableProperties(event);
+  pubsub.publish(eventList.DOM.taskChanged, projectName, taskId, newProperties);
+}
 export function saveChanges(event) {
   event.preventDefault();
   debugger;
   const subbmitter = getSubmitter(event);
   if (subbmitter.name !== "save") return;
-  const taskElement = getTaskElement(subbmitter);
-  const taskId = getTaskId(taskElement);
-  const projectName = provideProjectName();
-  const newProperties = collectEditableProperties(event);
-  pubsub.publish(eventList.DOM.taskChanged, projectName, taskId, newProperties);
+  // const taskElement = getTaskElement(subbmitter);
+  // const taskId = getTaskId(taskElement);
+  // const projectName = provideProjectName();
+  // const newProperties = collectEditableProperties(event);
+  // pubsub.publish(eventList.DOM.taskChanged, projectName, taskId, newProperties);
+  emittTaskChanged(event);
 }
 
 // export function saveChanges(event) {
@@ -205,3 +216,20 @@ export function saveChanges(event) {
 
 // }
 // export function approveTask
+function findCompletedCheckbox(targetElement) {
+  debugger;
+  const taskElement = getTaskElement(targetElement);
+  if (!taskElement) return;
+  const checkbox = taskElement.querySelector(`[name="completed"]`);
+  return checkbox;
+}
+export function toggleCompletedState(event) {
+  debugger;
+  const { target } = event;
+  const currentCheckbox = target.closest(`[type="checkbox"]`);
+  const checkbox = findCompletedCheckbox(target);
+  if (!currentCheckbox || !checkbox) return;
+  checkbox.value = false;
+  if (currentCheckbox.checked) checkbox.value = true;
+  emittTaskChanged(event);
+}

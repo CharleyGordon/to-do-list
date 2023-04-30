@@ -1,0 +1,23 @@
+:root {
+  --task-summary-height: 2ch;
+  --task-summary-padding: 0.25rem;
+  --task-summary-max-height: calc(
+    var(--task-summary-height) + var(--task-summary-padding) * 2
+  );
+}
+#task-list {
+  gap: 2rem;
+}
+#task-list :is(summary, li) {
+  list-style: none;
+}
+#task-list summary {
+  margin-inline-start: 2rem;
+  position: relative;
+
+  /* height: var(--task-summary-max-height); */
+}
+#task-list summary,
+#tasjk-list-summary * {
+  height: var(--task-summary-max-height);
+}

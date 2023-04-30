@@ -1,8 +1,92 @@
-.project {
-  transition: 0.5s;
+:root {
+  --project-gap: 2rem;
+  --project-padding: 2rem;
+  --project-radius: 1vmax;
+  --project-padding-block: calc(var(--project-padding) / 5);
+  --project-padding-inline: calc(var(--project-padding) / 8);
+
+  /* positions */
+
+  /* --description-translate-block: calc(var(--project-padding-block) + 110%); */
+  /* --task-adder-translate-block: calc(var(--description-translate-block) - 80%); */
+  /* colors */
+  /* --hue: 0;
+  --saturation: 0%;
+  --lightness: 0%;
+  --alpha: 0 */
+  --project-summary-height: 5rem;
+  --task-adder-margin: calc(
+    var(--project-summary-height) + calc(var(--project-gap) / 2)
+  );
+
+  --project-background-primary: #add8e6;
+  --project-background-secondary: #fffacd;
+  --project-background-supplementary: #98fb98;
+
+  --project-color-1: black;
+  --project-color-2: #006400;
+  --project-color-3: #708090;
+}
+#project {
+  width: min(90vw, 600px);
+  /* height: min(80vh, 300px); */
   place-self: center;
+
+  overflow: hidden;
+
+  padding-inline: var(--project-padding);
+  gap: var(--project-gap);
+
+  border-radius: var(--project-radius);
+
+  outline: 1px solid black;
+  background-color: var(--project-background-supplementary);
+
+  transition: 0.5s;
+
   /* scale: 0; */
 }
-/* .project:not(:target) {
-  scale: 0;
-} */
+#project * {
+  background-color: transparent;
+
+  font-weight: 700;
+  color: var(--project-color-3);
+}
+#project-summary {
+  width: 100%;
+  height: 5rem;
+}
+#project-name {
+  color: var(--project-color-1);
+}
+
+#project-name {
+  padding-block: var(--project-padding-block);
+  padding-inline: var(--project-padding-inline);
+  background-color: var(--project-background-primary);
+}
+
+#project-description {
+  padding-block: var(--project-padding-block);
+
+  translate: 0 var(--description-translate-block);
+
+  background-color: var(--project-background-secondary);
+  text-align: center;
+  color: var(--project-color-2);
+}
+#project .controls {
+  top: 0;
+  right: 0;
+  translate: 0 -100%;
+  gap: 2ch;
+}
+
+#task-adder {
+  /* justify-self: start; */
+  margin-block-start: var(--task-adder-margin);
+  text-align: center;
+}
+label {
+  display: contents;
+}

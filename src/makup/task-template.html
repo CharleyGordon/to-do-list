@@ -1,24 +1,33 @@
 <li class="task">
-  <details data-grid>
-    <summary>
-      <textarea class="editable" name="objective" readonly>objective</textarea>
-    </summary>
-    <label>
-      Priority:
-      <input type="number" name="priority" class="editable" readonly />
-    </label>
-    <label>
-      Due Date: <input type="date" name="due-date" class="editable" readonly
-    /></label>
-    <textarea name="note" class="editable" readonly>Note</textarea>
-    <form>
-      <fieldset>
-        <legend>Manage task:</legend>
-        <button type="submit" name="remove">Remove task</button>
-        <button type="submit" name="change">Change Task</button>
-        <button type="submit" name="save">Save</button>
-        <button type="submit" name="restore">Restore</button>
-      </fieldset>
-    </form>
-  </details>
+  <form>
+    <details data-grid>
+      <summary data-grid>
+        <label for="completed-placeholder"
+          ><input type="checkbox" name="completed-placeholder" value="true"
+        /></label>
+        <input type="checkbox" class="editable" name="completed" readonly /
+        style="display: none">
+        <textarea class="editable" name="objective" readonly>
+objective</textarea
+        >
+      </summary>
+      <label>
+        Priority:
+        <input type="number" name="priority" class="editable" readonly />
+      </label>
+      <label>
+        Due Date: <input type="date" name="due-date" class="editable" readonly
+      /></label>
+      <textarea name="note" class="editable" readonly>Note</textarea>
+      <form>
+        <fieldset>
+          <legend>Manage task:</legend>
+          <button type="submit" name="remove">Remove task</button>
+          <button type="submit" name="change">Change Task</button>
+          <button type="submit" name="save">Save</button>
+          <button type="submit" name="restore">Restore</button>
+        </fieldset>
+      </form>
+    </details>
+  </form>
 </li>

@@ -1,6 +1,25 @@
+.task {
+  overflow: hidden;
+}
 .task:not(.editing) :is([name="save"], [name="restore"]) {
   display: none;
 }
 .task details * {
   width: 100%;
+}
+.task summary {
+  grid-template-columns: auto 1fr;
+  align-items: start;
+}
+.task label:first-of-type {
+  display: block;
+  /* display: grid; */
+}
+.task:not(.editing) summary::before {
+  content: "";
+  display: block;
+  position: absolute;
+  grid-column: 2;
+  inset: 0;
+  border: 1px solid black;
 }

@@ -21,6 +21,7 @@ export default {
         projectFunctions.markAsEditing,
         projectFunctions.saveChanges,
       ],
+      click: [projectFunctions.toggleCompletedState],
     },
   },
   task: {

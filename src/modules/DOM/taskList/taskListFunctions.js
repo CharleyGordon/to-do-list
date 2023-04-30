@@ -21,9 +21,15 @@ function bindInitialValues(taskElement) {
   });
 }
 
+function handleCompleted(taskElement, completedState) {
+  if (!Boolean(completedState)) return;
+  const completedPlaceholder = taskElement.querySelector(`[type="checkbox"]`);
+  completedPlaceholder.checked = true;
+  taskElement.dataset.completed = true;
+}
 export function renderTask(taskObject) {
   debugger;
-  const { id, objective, priority, dueDate, note } = taskObject;
+  const { id, objective, priority, dueDate, note, completed } = taskObject;
   const currentTask = taskTemplate.cloneNode("true");
   iterateEvents(currentTask, taskEvents);
   currentTask.dataset.id = id;
@@ -32,6 +38,7 @@ export function renderTask(taskObject) {
   currentTask.querySelector(`[name="due-date"]`).value = dueDate;
   currentTask.querySelector(`[name="note"]`).value = note;
   bindInitialValues(currentTask);
+  handleCompleted(currentTask, completed);
   taskListUl.append(currentTask);
 }
 export function renderAllTasks(tasksArray) {
