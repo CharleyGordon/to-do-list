@@ -2,6 +2,7 @@ import projectListItemTemplate from "../../../makup/project-list-item-template.h
 import parseHtml from "../../parseHtml";
 import pubsub from "../../pubsub/pubsub";
 import eventList from "../../../eventList";
+import { camelize } from "../../camelize";
 
 function createProjectListItem(projectProperties) {
   const { name } = projectProperties;
@@ -13,13 +14,39 @@ function createProjectListItem(projectProperties) {
   return projectListItem;
 }
 
+function hasName(target) {
+  const { name } = target;
+  return name;
+}
+function toggleAddClass(target) {
+  const camelName = camelize(target.name);
+  if (camelName !== "addProject") return;
+  const content = target.closest("#content");
+  content.classList.toggle(target.name);
+}
+function toggleAddProject(event) {
+  debugger;
+  const { target } = event;
+  if (!hasName(target)) return;
+  toggleAddClass(target);
+}
+
+export function expandProjectAdder(event) {
+  toggleAddProject(event);
+}
+function clearProjectList() {
+  const projectList = document.getElementById("project-list");
+  projectList.innerHTML = "";
+}
 export function renderProjectListItem(projectElement) {
+  debugger;
   const projectList = document.getElementById("project-list");
   const projectListItem = createProjectListItem(projectElement);
   projectList.append(projectListItem);
 }
 
 export function renderAllProjects(projectsElement) {
+  clearProjectList();
   projectsElement.forEach(function (projectElement) {
     renderProjectListItem(projectElement);
   });

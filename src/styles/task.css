@@ -1,3 +1,7 @@
+:root {
+  --priority-color: red;
+  --task-textarea-height: 2ch;
+}
 .task {
   overflow: hidden;
 }
@@ -9,17 +13,52 @@
 }
 .task summary {
   grid-template-columns: auto 1fr;
+  gap: 1ch;
   align-items: start;
 }
-.task label:first-of-type {
-  display: block;
-  /* display: grid; */
+.task :is(input, textarea, button) {
+  border: none;
+  max-height: fit-content;
 }
+.task textarea {
+  height: var(--task-textarea-height);
+}
+.task legend {
+  outline: none;
+}
+.task label:first-of-type {
+  display: grid;
+  align-items: center;
+  height: 100%;
+}
+.task label {
+  font-size: var(--task-label-font-size);
+}
+
+.task label :is(input, textarea) {
+  font-size: 1.5rem;
+}
+
 .task:not(.editing) summary::before {
   content: "";
   display: block;
   position: absolute;
   grid-column: 2;
   inset: 0;
-  border: 1px solid black;
+
+  border-radius: 2vmax;
+
+  border: 1px solid var(--priority-color);
+}
+
+.task:not(.editing) summary::before,
+.task summary textarea {
+  max-width: 400px;
+}
+.task summary textarea {
+  text-align: center;
+  resize: none;
+  overflow: auto;
+  font-weight: 0.9rem;
+  color: white;
 }

@@ -1,6 +1,10 @@
 #project-adder {
   width: min(600px, 90vw);
   align-items: start;
+
+  padding: 2rem;
+
+  text-align: center;
   /* gap: 5rem; */
 }
 

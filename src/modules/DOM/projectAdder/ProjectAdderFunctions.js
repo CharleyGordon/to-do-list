@@ -12,4 +12,5 @@ export function requestAddProject(event) {
     description: taskDescription.value,
   };
   pubsub.publish(eventList.DOM.projectAdded, propertyObject);
+  target.reset();
 }

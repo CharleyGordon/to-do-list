@@ -9,15 +9,21 @@ const { project } = DomElements;
 function provideProjectName() {
   return project.dataset.project;
 }
+function projectConnected() {
+  return project.isConnected;
+}
 
 export function renderProject(projectObject) {
-  // debugger;
+  debugger;
   const { name, description, tasks } = projectObject;
   project.dataset.project = name;
   const projectName = project.querySelector("#project-name");
   const projectDescription = project.querySelector("#project-description");
   projectName.textContent = name;
   projectDescription.textContent = description;
+  const connected = projectConnected();
+  const content = document.querySelector("#content");
+  if (!connected) content.append(project);
   pubsub.publish(eventList.DOM.projectRendered, tasks);
 }
 
@@ -26,7 +32,6 @@ export function approveTask(taskProperties) {
   const projectName = provideProjectName();
   if (!projectName) return;
   pubsub.publish(eventList.DOM.addTask, projectName, taskProperties);
-  // pubsub.publish(eventList.DOM.taskApproved, taskProperties);
 }
 
 function getTaskElement(targetElement) {
@@ -72,6 +77,7 @@ function setFieldsAsReadOnly(fieldArray) {
 }
 
 function decideAboutChange(fieldArray) {
+  // debugger;
   const areReadOnly = fieldsAreReadOnly(fieldArray);
   if (areReadOnly) return allowToEditFields(fieldArray);
   return setFieldsAsReadOnly(fieldArray);
@@ -83,6 +89,7 @@ function collectEditables(taskElement) {
 }
 
 function toggleChange(taskElement) {
+  debugger;
   if (!taskElement) return;
   // toggleEditClass(taskElement);
   const editableFields = collectEditables(taskElement);
@@ -232,4 +239,34 @@ export function toggleCompletedState(event) {
   checkbox.value = false;
   if (currentCheckbox.checked) checkbox.value = true;
   emittTaskChanged(event);
+}
+
+function updateDomPriority(element, priority) {
+  element.dataset.priority = priority;
+}
+
+function getPriority(target) {
+  if (target.name !== "priority") return;
+  return target.value;
+}
+export function chageTaskPriority(event) {
+  debugger;
+  const { target } = event;
+  const taskElement = getTaskElement(target);
+  const priorityLevel = getPriority(target);
+  if (!taskElement || !priorityLevel) return;
+  updateDomPriority(taskElement, priorityLevel);
+}
+
+export function removeProject() {
+  project.remove();
+}
+
+export function bubbleRemoveProject(event) {
+  event.preventDefault();
+  debugger;
+  const { target } = event;
+  if (target.name !== "delete") return;
+  const projectName = provideProjectName();
+  pubsub.publish(eventList.DOM.projectBubbled, projectName);
 }

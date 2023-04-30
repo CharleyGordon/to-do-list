@@ -20,7 +20,9 @@ function bindInitialValues(taskElement) {
     if (value) field.dataset.initialValue = value;
   });
 }
-
+function handlePriority(taskElement, priorityLevel) {
+  taskElement.dataset.priority = priorityLevel;
+}
 function handleCompleted(taskElement, completedState) {
   if (!Boolean(completedState)) return;
   const completedPlaceholder = taskElement.querySelector(`[type="checkbox"]`);
@@ -39,12 +41,19 @@ export function renderTask(taskObject) {
   currentTask.querySelector(`[name="note"]`).value = note;
   bindInitialValues(currentTask);
   handleCompleted(currentTask, completed);
+  handlePriority(currentTask, priority);
   taskListUl.append(currentTask);
 }
-export function renderAllTasks(tasksArray) {
-  taskListUl = taskListUl ?? document.getElementById("task-list");
 
+function clearList(taskListUl) {
   taskListUl.innerHTML = "";
+}
+
+export function renderAllTasks(tasksArray) {
+  debugger;
+  taskListUl = taskListUl ?? document.getElementById("task-list");
+  clearList(taskListUl);
+
   if (tasksArray.length === 0) return;
   tasksArray.forEach(renderTask);
 }

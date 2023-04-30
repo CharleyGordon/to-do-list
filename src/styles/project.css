@@ -1,36 +1,6 @@
-:root {
-  --project-gap: 2rem;
-  --project-padding: 2rem;
-  --project-radius: 1vmax;
-  --project-padding-block: calc(var(--project-padding) / 5);
-  --project-padding-inline: calc(var(--project-padding) / 8);
-
-  /* positions */
-
-  /* --description-translate-block: calc(var(--project-padding-block) + 110%); */
-  /* --task-adder-translate-block: calc(var(--description-translate-block) - 80%); */
-  /* colors */
-  /* --hue: 0;
-  --saturation: 0%;
-  --lightness: 0%;
-  --alpha: 0 */
-  --project-summary-height: 5rem;
-  --task-adder-margin: calc(
-    var(--project-summary-height) + calc(var(--project-gap) / 2)
-  );
-
-  --project-background-primary: #add8e6;
-  --project-background-secondary: #fffacd;
-  --project-background-supplementary: #98fb98;
-
-  --project-color-1: black;
-  --project-color-2: #006400;
-  --project-color-3: #708090;
-}
 #project {
-  width: min(90vw, 600px);
+  /* width: min(90vw, 600px); */
   /* height: min(80vh, 300px); */
-  place-self: center;
 
   overflow: hidden;
 
@@ -50,6 +20,8 @@
   background-color: transparent;
 
   font-weight: 700;
+}
+#project *:not(summary textarea) {
   color: var(--project-color-3);
 }
 #project-summary {
@@ -76,10 +48,12 @@
   color: var(--project-color-2);
 }
 #project .controls {
-  top: 0;
-  right: 0;
+  top: 2rem;
+
+  right: 1rem;
   translate: 0 -100%;
   gap: 2ch;
+  list-style: none;
 }
 
 #task-adder {

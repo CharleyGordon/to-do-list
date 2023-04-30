@@ -7,7 +7,7 @@ import * as Project from "./modules/toDo/project/Project";
 import * as taskFunctions from "./modules/DOM/task/taskFunctions";
 import * as projectListFunctions from "./modules/DOM/projectList/projectListFunctions";
 
-import * as projectFucntions from "./modules/DOM/project/projectFunctions";
+import * as projectFunctions from "./modules/DOM/project/projectFunctions";
 import * as taskListFunctions from "./modules/DOM/taskList/taskListFunctions";
 
 pubsub.subscribe(eventList.projectsChanged, Storage.saveProjects);
@@ -36,7 +36,7 @@ pubsub.subscribe(
 
 pubsub.subscribe(eventList.DOM.findProject, Project.provideSearchedProject);
 
-pubsub.subscribe(eventList.DOM.projectFound, projectFucntions.renderProject);
+pubsub.subscribe(eventList.DOM.projectFound, projectFunctions.renderProject);
 
 // pubsub.subscribe(eventList.DOM.projectApproved, taskListFunctions.renderTask);
 
@@ -45,11 +45,11 @@ pubsub.subscribe(
   taskListFunctions.renderAllTasks
 );
 
-pubsub.subscribe(eventList.DOM.requestTask, projectFucntions.approveTask);
+pubsub.subscribe(eventList.DOM.requestTask, projectFunctions.approveTask);
 
 pubsub.subscribe(eventList.DOM.addTask, Project.addTask);
 
-pubsub.subscribe(eventList.DOM.taskBubbled, projectFucntions.queryRemoveTask);
+pubsub.subscribe(eventList.DOM.taskBubbled, projectFunctions.queryRemoveTask);
 
 pubsub.subscribe(eventList.DOM.removeTask, Project.removeTask);
 
@@ -58,3 +58,7 @@ pubsub.subscribe(eventList.DOM.taskRemoved, taskFunctions.removeTaskFromDom);
 pubsub.subscribe(eventList.DOM.taskApproved, taskListFunctions.renderTask);
 
 pubsub.subscribe(eventList.DOM.taskChanged, Project.replaceTask);
+
+pubsub.subscribe(eventList.DOM.projectBubbled, Project.deleteProject);
+
+pubsub.subscribe(eventList.projectDeleted, projectFunctions.removeProject);

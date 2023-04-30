@@ -62,10 +62,13 @@ export function addProject(propertiesObject) {
 }
 
 export function deleteProject(projectName) {
+  debugger;
   const searchedProjectIndex = getProjectIndexByName(projectName);
   if (searchedProjectIndex < 0) return;
   projects.splice(searchedProjectIndex, 1);
   emittProjectsChanged(projects);
+  pubsub.publish(eventList.projectDeleted);
+  pubsub.publish(eventList.DOM.renderProjects, projects);
 }
 
 function findTask(taskArray, searchedId) {

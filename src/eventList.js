@@ -5,6 +5,7 @@ export default {
   taskToggled: "taskToggled",
   taskPriorityChanged: "taskPriorityChanged",
   taskObjectiveChanged: "taskObjectiveChanged",
+  projectDeleted: "projectDeleted",
   DOM: {
     projectAdded: "projectAdded",
     requestTask: "queryTask", //find project name (projectFunctions)
@@ -19,6 +20,7 @@ export default {
     findProject: "findProject",
     projectFound: "projectFound",
     projectRendered: "projectRendered",
+    projectBubbled: "projectBubbled",
     taskChanged: "taskChanged",
   },
 };
