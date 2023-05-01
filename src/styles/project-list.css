@@ -1,3 +1,6 @@
 #project-list {
+  align-items: start;
+}
+#project-list ul {
   list-style: none;
 }

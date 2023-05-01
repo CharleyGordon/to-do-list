@@ -35,12 +35,13 @@ export function expandProjectAdder(event) {
   toggleAddProject(event);
 }
 function clearProjectList() {
-  const projectList = document.getElementById("project-list");
+  const projectList = document.querySelector(".project-list");
   projectList.innerHTML = "";
 }
+
 export function renderProjectListItem(projectElement) {
   debugger;
-  const projectList = document.getElementById("project-list");
+  const projectList = document.querySelector(".project-list");
   const projectListItem = createProjectListItem(projectElement);
   projectList.append(projectListItem);
 }

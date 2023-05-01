@@ -12,21 +12,29 @@
   color: var(--content-color);
   background-color: var(--content-background);
 }
-
+#project,
+#project-adder {
+  /* transition: 0.5s; */
+}
 #project-adder {
   position: absolute;
   place-self: center;
 
-  transition: 0.5s;
   scale: 0;
-
-  box-shadow: 0 0 0 100vmax black;
 }
-#content.add-project > :not(#project-adder) {
-  display: none;
+#content.add-project #project {
+  transition: scale 0.5s 0;
+  scale: 0;
+}
+#project {
+  transition: scale 0.5s 0.5s;
 }
 #content.add-project #project-adder {
+  transition: 0.5s 0.5s;
   scale: 1;
+}
+#project-adder {
+  transition: scale 0.5s 0;
 }
 @media (min-width: 600px) {
   #content {
@@ -45,8 +53,7 @@
     grid-area: project;
   }
   #project-adder {
-    grid-row: 1 / -1;
-    grid-column: 1 / -1;
+    grid-area: project;
   }
 }
 /* #content > * {

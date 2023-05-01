@@ -31,11 +31,12 @@
 #project-name {
   color: var(--project-color-1);
 }
-
+#project .top-section {
+  background-color: var(--project-background-primary);
+}
 #project-name {
   padding-block: var(--project-padding-block);
   padding-inline: var(--project-padding-inline);
-  background-color: var(--project-background-primary);
 }
 
 #project-description {
@@ -54,6 +55,10 @@
   translate: 0 -100%;
   gap: 2ch;
   list-style: none;
+}
+
+#project .controls > form {
+  display: contents;
 }
 
 #task-adder {

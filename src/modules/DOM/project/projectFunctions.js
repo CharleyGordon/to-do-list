@@ -265,8 +265,8 @@ export function removeProject() {
 export function bubbleRemoveProject(event) {
   event.preventDefault();
   debugger;
-  const { target } = event;
-  if (target.name !== "delete") return;
+  const { submitter } = event;
+  if (submitter.name !== "delete") return;
   const projectName = provideProjectName();
   pubsub.publish(eventList.DOM.projectBubbled, projectName);
 }

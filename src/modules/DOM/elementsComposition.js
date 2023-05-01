@@ -20,11 +20,9 @@ export default {
         projectFunctions.handleChangeTask,
         projectFunctions.markAsEditing,
         projectFunctions.saveChanges,
-      ],
-      click: [
-        projectFunctions.toggleCompletedState,
         projectFunctions.bubbleRemoveProject,
       ],
+      click: [projectFunctions.toggleCompletedState],
       input: [projectFunctions.chageTaskPriority],
     },
   },
