@@ -26,6 +26,12 @@
   transition: scale 0.5s 0;
   scale: 0;
 }
+#content button[name="add-project"]::before {
+  content: "Add project";
+}
+#content.add-project button[name="add-project"]::before {
+  content: "Back to projects";
+}
 #project {
   transition: scale 0.5s 0.5s;
 }
