@@ -10,7 +10,7 @@ const { projectList } = DomElements;
 // debugger;
 content.append(projectAdder);
 content.append(projectList);
-content.append(project);
+// content.append(project);
 document.body.append(content);
 
 pubsub.publish(eventList.DOM.startProjectsRender);

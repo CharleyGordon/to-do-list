@@ -1,5 +1,4 @@
 #project-adder {
-  width: min(600px, 90vw);
   align-items: start;
 
   padding: 2rem;
@@ -8,6 +7,15 @@
   /* gap: 5rem; */
 }
 
-#project-adder * {
-  width: 100%;
+#project-adder form * {
+  max-width: 70%;
 }
+
+#task-adder fieldset {
+  max-width: 400px;
+  margin: 0 auto;
+  gap: 0.25rem;
+}
+/* #project-adder * {
+  width: 100%;
+} */
