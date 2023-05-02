@@ -9,16 +9,7 @@ const { projects } = storage;
 function uniqueProjectName(name) {
   return !projects.find((projectObject) => projectObject.name === name);
 }
-function project(propertiesObject) {
-  const { name, description } = propertiesObject;
-  if (!uniqueProjectName(name)) return;
-  const tasks = [];
-  return {
-    name,
-    description,
-    tasks,
-  };
-}
+
 function getProjectByName(projectName) {
   return projects.find((projectObject) => projectObject.name === projectName);
 }
@@ -40,7 +31,46 @@ function getProjectTasks(projectName) {
   return getProjectByName(projectName)?.tasks;
 }
 
+function unfinishedTask(taskObject) {
+  const { completed } = taskObject;
+  return completed === "false" || !completed;
+}
+
+function countUnfinishedTasks(projectObject) {
+  debugger;
+  const { name } = projectObject;
+  const tasks = getProjectTasks(name);
+  if (!tasks) return;
+  const UnfinishedTasks = tasks.filter(unfinishedTask);
+  return UnfinishedTasks.length;
+}
+
+function updateUnfinishedTasks(projectObject) {
+  debugger;
+  const unfinishedTasksAmount = countUnfinishedTasks(projectObject);
+  if (!projectObject) return;
+  projectObject.unfinished = unfinishedTasksAmount;
+}
+
+function updateAllUnfinishedTasks() {
+  projects.forEach(updateUnfinishedTasks);
+}
+
+function project(propertiesObject) {
+  const { name, description } = propertiesObject;
+  const tasks = [];
+  const unfinished = 0;
+  if (!uniqueProjectName(name)) return;
+
+  return {
+    name,
+    description,
+    tasks,
+    unfinished,
+  };
+}
 function emittProjectsChanged(projectsObject) {
+  updateAllUnfinishedTasks();
   pubsub.publish(eventList.projectsChanged, projectsObject);
 }
 
