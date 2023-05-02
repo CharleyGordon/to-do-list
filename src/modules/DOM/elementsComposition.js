@@ -22,7 +22,6 @@ export default {
         projectFunctions.saveChanges,
         projectFunctions.bubbleRemoveProject,
         projectFunctions.toggleConfigureProject,
-        // projectFunctions.bubbleChangeProjectDetails,
       ],
       click: [projectFunctions.toggleCompletedState],
       input: [projectFunctions.chageTaskPriority],
@@ -50,6 +49,7 @@ export default {
       click: [
         projectListFunctions.requestProject,
         projectListFunctions.expandProjectAdder,
+        projectListFunctions.markAsCurrent,
       ],
     },
   },

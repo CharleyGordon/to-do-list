@@ -12,7 +12,9 @@
 }
 .project {
   width: 100%;
+  position: relative;
   padding: 0.25em;
+  isolation: isolate;
 }
 .project::after {
   content: attr(data-unfinished);
@@ -22,6 +24,29 @@
   color: red;
 
   animation: alert 1s infinite alternate linear;
+}
+
+.project.current {
+  /* filter: hue-rotate(200deg); */
+}
+
+.project::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  transition: scale 0.5s ease;
+  scale: 0 1;
+
+  background-color: var(--content-background);
+  filter: hue-rotate(10deg) saturate(2);
+
+  transform-origin: left;
+  z-index: -1;
+}
+.project.current::before {
+  transition: scale 0.5s ease 0.2s;
+  scale: 1 1;
 }
 
 @keyframes alert {

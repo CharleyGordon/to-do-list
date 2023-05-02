@@ -5,22 +5,16 @@ import eventList from "../../../eventList";
 import { camelize } from "../../camelize";
 
 function setUnfinishedAmount(element, unfinishedAmount) {
-  debugger;
   if (!element || !unfinishedAmount) return;
-  console.dir(`updating ${element}....`);
   element.dataset.unfinished = unfinishedAmount;
 }
 
 export function updateUnfinishedAmount(projectObject) {
-  debugger;
-  console.dir("starting....");
   if (!projectObject) return;
   const { name } = projectObject;
-  console.dir(`searhing for ${name}....`);
 
   const { unfinished } = projectObject;
   const selector = `[data-project="${name}"]`;
-  console.dir("the selector is: ", selector);
   const projectAnchor = document.querySelector(selector);
   setUnfinishedAmount(projectAnchor, unfinished);
 }
@@ -73,6 +67,28 @@ export function renderAllProjects(projectsElement) {
   projectsElement.forEach((projectElement) => {
     renderProjectListItem(projectElement);
   });
+}
+
+function removeCurrent(selector, cssClass = "current") {
+  const elements = document.querySelectorAll(selector);
+  if (!elements.length) return;
+  elements.forEach((element) => {
+    element.classList.remove(cssClass);
+  });
+}
+
+function markProject(element, cssClass = "current") {
+  console.dir(element);
+  element.classList.add(cssClass);
+}
+
+export function markAsCurrent(event) {
+  event.preventDefault();
+  const { target } = event;
+  const project = target.closest(".project");
+  if (!project) return;
+  removeCurrent(".project");
+  markProject(project);
 }
 
 export function requestProject(event) {
