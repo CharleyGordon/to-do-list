@@ -162,3 +162,25 @@ export function removeTask(projectName, taskId) {
   emittProjectsChanged(projects);
   pubsub.publish(eventList.DOM.taskRemoved, taskId);
 }
+
+// change name of project
+function changeProjectName(oldName, newName) {
+  const project = getProjectByName(oldName);
+  if (!project || !uniqueProjectName(newName)) return;
+  project.name = newName;
+}
+// change description
+function changeProjectDescription(projectName, newDescription) {
+  debugger;
+  const project = getProjectByName(projectName);
+  if (!project || !newDescription) return;
+  project.description = newDescription;
+}
+
+export function changeProjectDetails(projectName, propertiesObject) {
+  const { name, description } = propertiesObject;
+  changeProjectName(projectName, name);
+  changeProjectDescription(projectName, description);
+  emittProjectsChanged(projects);
+  pubsub.publish(eventList.DOM.startProjectsRender);
+}

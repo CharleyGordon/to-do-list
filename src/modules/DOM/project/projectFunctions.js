@@ -4,6 +4,8 @@ import DomElements from "../DomElements";
 import { camelize } from "../../camelize";
 
 const { project } = DomElements;
+const projectNameField = project.querySelector("#project-name");
+const projectDescriptionField = project.querySelector("#project-description");
 // const { taskList } = DomElements;
 
 function provideProjectName() {
@@ -13,14 +15,41 @@ function projectConnected() {
   return project.isConnected;
 }
 
+function setInitialProjectValues() {
+  projectNameField.dataset.initialValue = projectNameField.textContent;
+  projectDescriptionField.dataset.initialValue =
+    projectDescriptionField.textContent;
+}
+function returnProjectInitialValues() {
+  projectNameField.textContent = projectNameField.dataset.initialValue;
+  projectDescriptionField.textContent =
+    projectDescriptionField.dataset.initialValue;
+}
+
+function collectProjectName() {
+  return projectNameField.textContent;
+}
+function collectProjectDescription() {
+  return projectDescriptionField.textContent;
+}
+
+function serializeProjectProperties() {
+  const name = collectProjectName();
+  const description = collectProjectDescription();
+  if (!name || !description) return;
+  return {
+    name,
+    description,
+  };
+}
+
 export function renderProject(projectObject) {
   debugger;
   const { name, description, tasks } = projectObject;
   project.dataset.project = name;
-  const projectName = project.querySelector("#project-name");
-  const projectDescription = project.querySelector("#project-description");
-  projectName.textContent = name;
-  projectDescription.textContent = description;
+  projectNameField.textContent = name;
+  projectDescriptionField.textContent = description;
+  setInitialProjectValues();
   const connected = projectConnected();
   const content = document.querySelector("#content");
   if (!connected) content.append(project);
@@ -40,7 +69,7 @@ function getTaskElement(targetElement) {
 }
 
 function toggleEditClass(taskElement) {
-  taskElement.classList.toggle("editing");
+  taskElement?.classList.toggle("editing");
 }
 
 function getTaskId(taskElement) {
@@ -84,7 +113,7 @@ function decideAboutChange(fieldArray) {
 }
 
 function collectEditables(taskElement) {
-  const editables = Array.from(taskElement.querySelectorAll(".editable"));
+  const editables = Array.from(taskElement?.querySelectorAll(".editable"));
   return editables;
 }
 
@@ -199,6 +228,7 @@ function emittTaskChanged(event) {
   debugger;
   const { target } = event;
   const taskElement = getTaskElement(target);
+  if (!taskElement) return;
   const taskId = getTaskId(taskElement);
   const projectName = provideProjectName();
   const newProperties = collectEditableProperties(event);
@@ -269,4 +299,88 @@ export function bubbleRemoveProject(event) {
   if (submitter.name !== "delete") return;
   const projectName = provideProjectName();
   pubsub.publish(eventList.DOM.projectBubbled, projectName);
+}
+
+function changeDeleteButtonName(button, buttonName) {
+  debugger;
+  if (!button || !buttonName) return;
+  if (buttonName === "delete") {
+    button.name = button.textContent = "undo";
+  } else button.name = button.textContent = "delete";
+}
+
+function changeChangeButtonName(button, buttonName) {
+  debugger;
+  if (!button || !buttonName) return;
+  if (buttonName === "change") {
+    button.name = button.textContent = "save";
+  } else button.name = button.textContent = "change";
+}
+
+function toggleDeleteButton(event) {
+  debugger;
+  const { elements } = event.target;
+  const deleteButton = elements["delete"] ?? elements["undo"];
+  const deleteButtonName = deleteButton?.name;
+  changeDeleteButtonName(deleteButton, deleteButtonName);
+}
+
+function getSaveButton(event) {
+  const { elements } = event.target;
+  const saveButton = elements["change"] ?? elements["save"];
+  const saveButtonName = saveButton?.name;
+  return [saveButton, saveButtonName];
+}
+
+function toggleChangeButton(event) {
+  debugger;
+  const [saveButton, saveButtonName] = getSaveButton(event);
+  changeChangeButtonName(saveButton, saveButtonName);
+}
+
+function allowProjectEdit() {
+  debugger;
+  console.dir("allowing...");
+  projectNameField.setAttribute("contenteditable", "true");
+  projectDescriptionField.setAttribute("contenteditable", "true");
+}
+
+function prohibitProjectEdit() {
+  debugger;
+  console.dir("prohibiting...");
+  projectNameField.removeAttribute("contenteditable");
+  projectDescriptionField.removeAttribute("contenteditable");
+}
+
+function toggleProjectEdit() {
+  debugger;
+  const isEditable = projectNameField.getAttribute("contentEditable");
+  if (isEditable !== "true") return allowProjectEdit();
+  return prohibitProjectEdit();
+}
+
+function resetProjectDetails(event) {
+  debugger;
+  const { submitter } = event;
+  const { name } = submitter;
+  if (name !== "undo") return;
+  returnProjectInitialValues();
+}
+
+function bubbleChangeProjectDetails(event) {
+  debugger;
+  const projectName = provideProjectName();
+  const [saveButton, ...other] = getSaveButton(event);
+  const properyObject = serializeProjectProperties();
+  if (!saveButton || !properyObject) return;
+  pubsub.publish(eventList.DOM.projectChanged, projectName, properyObject);
+}
+
+export function toggleConfigureProject(event) {
+  event.preventDefault();
+  resetProjectDetails(event);
+  bubbleChangeProjectDetails(event);
+  toggleDeleteButton(event);
+  toggleChangeButton(event);
+  toggleProjectEdit();
 }

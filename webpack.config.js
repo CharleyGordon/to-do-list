@@ -37,7 +37,7 @@ module.exports = {
       {
         test: /\.(woff|woff2|ttf|otf|eot)$/,
         type: "asset/resource",
-        filename: [name][ext],
+        // filename: ["name"]["ext"],
       },
     ],
   },

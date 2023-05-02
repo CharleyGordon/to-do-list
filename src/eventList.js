@@ -22,5 +22,6 @@ export default {
     projectRendered: "projectRendered",
     projectBubbled: "projectBubbled",
     taskChanged: "taskChanged",
+    projectChanged: "projectChanged",
   },
 };

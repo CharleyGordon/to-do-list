@@ -4,6 +4,9 @@
 }
 .task {
   overflow: hidden;
+  max-width: 400px;
+
+  justify-self: center;
 }
 .task:not(.editing) :is([name="save"], [name="restore"]) {
   display: none;
@@ -46,9 +49,13 @@
   grid-column: 2;
   inset: 0;
 
-  border-radius: 2vmax;
-
+  border-radius: 0.25vmax;
   border: 1px solid var(--priority-color);
+}
+
+.task details[open] summary::before {
+  border: none;
+  box-shadow: inset 1px 1px 1px red;
 }
 
 .task:not(.editing) summary::before,

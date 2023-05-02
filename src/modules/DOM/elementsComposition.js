@@ -21,6 +21,8 @@ export default {
         projectFunctions.markAsEditing,
         projectFunctions.saveChanges,
         projectFunctions.bubbleRemoveProject,
+        projectFunctions.toggleConfigureProject,
+        // projectFunctions.bubbleChangeProjectDetails,
       ],
       click: [projectFunctions.toggleCompletedState],
       input: [projectFunctions.chageTaskPriority],

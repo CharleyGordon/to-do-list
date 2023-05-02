@@ -1,5 +1,8 @@
 #project-list {
+  align-self: center;
   align-items: start;
+
+  height: fit-content;
 }
 #project-list ul {
   list-style: none;

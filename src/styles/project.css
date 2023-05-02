@@ -1,10 +1,12 @@
 #project {
   /* width: min(90vw, 600px); */
   /* height: min(80vh, 300px); */
+  max-height: 80vh;
 
-  overflow: hidden;
+  overflow: auto;
 
   padding-inline: var(--project-padding);
+  padding-block: var(--project-padding-block);
   gap: var(--project-gap);
 
   border-radius: var(--project-radius);

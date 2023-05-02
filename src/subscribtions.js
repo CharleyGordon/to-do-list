@@ -62,3 +62,5 @@ pubsub.subscribe(eventList.DOM.taskChanged, Project.replaceTask);
 pubsub.subscribe(eventList.DOM.projectBubbled, Project.deleteProject);
 
 pubsub.subscribe(eventList.projectDeleted, projectFunctions.removeProject);
+
+pubsub.subscribe(eventList.DOM.projectChanged, Project.changeProjectDetails);
