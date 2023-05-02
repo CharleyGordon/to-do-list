@@ -24,8 +24,8 @@ function handlePriority(taskElement, priorityLevel) {
   taskElement.dataset.priority = priorityLevel;
 }
 function handleCompleted(taskElement, completedState) {
-  if (!Boolean(completedState)) return;
-  const completedPlaceholder = taskElement.querySelector(`[type="checkbox"]`);
+  if (completedState === "false" || !completedState) return;
+  const completedPlaceholder = taskElement.querySelector('[type="checkbox"]');
   completedPlaceholder.checked = true;
   taskElement.dataset.completed = true;
 }
@@ -35,10 +35,10 @@ export function renderTask(taskObject) {
   const currentTask = taskTemplate.cloneNode("true");
   iterateEvents(currentTask, taskEvents);
   currentTask.dataset.id = id;
-  currentTask.querySelector(`[name="objective"]`).value = objective;
-  currentTask.querySelector(`[name="priority"]`).value = priority;
-  currentTask.querySelector(`[name="due-date"]`).value = dueDate;
-  currentTask.querySelector(`[name="note"]`).value = note;
+  currentTask.querySelector('[name="objective"]').value = objective;
+  currentTask.querySelector('[name="priority"]').value = priority;
+  currentTask.querySelector('[name="due-date"]').value = dueDate;
+  currentTask.querySelector('[name="note"]').value = note;
   bindInitialValues(currentTask);
   handleCompleted(currentTask, completed);
   handlePriority(currentTask, priority);
