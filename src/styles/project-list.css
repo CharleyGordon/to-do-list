@@ -15,6 +15,7 @@
   position: relative;
   padding: 0.25em;
   isolation: isolate;
+  transition: filter 0.5s linear;
 }
 .project::after {
   content: attr(data-unfinished);
@@ -27,7 +28,7 @@
 }
 
 .project.current {
-  /* filter: hue-rotate(200deg); */
+  filter: hue-rotate(-10deg);
 }
 
 .project::before {
@@ -44,10 +45,14 @@
   transform-origin: left;
   z-index: -1;
 }
-.project.current::before {
+.project:where(.current, :hover, :focus, :focus-within)::before {
   transition: scale 0.5s ease 0.2s;
   scale: 1 1;
 }
+/* project:is(:hover, :focus, :focus-within)::before {
+  filter: grayscale(0.5);
+  filter: drop-shadow(1px 1px 2px white);
+} */
 
 @keyframes alert {
   from {

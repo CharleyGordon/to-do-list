@@ -1,5 +1,4 @@
 :root {
-  --priority-color: red;
   --task-textarea-height: 2ch;
 }
 .task {
@@ -7,6 +6,20 @@
   max-width: 400px;
 
   justify-self: center;
+
+  isolation: isolate;
+}
+.task[data-priority="1"] {
+  --priority-color: red;
+}
+.task[data-priority="2"] {
+  --priority-color: yellow;
+}
+.task[data-priority="3"] {
+  --priority-color: green;
+}
+.task[data-priority="4"] {
+  --priority-color: blue;
 }
 .task:not(.editing) :is([name="save"], [name="restore"]) {
   display: none;
@@ -50,7 +63,11 @@
   inset: 0;
 
   border-radius: 0.25vmax;
-  border: 1px solid var(--priority-color);
+  box-shadow: inset 4px 0 0 -1px var(--priority-color);
+  background-color: #888;
+  mix-blend-mode: color-burn;
+  cursor: pointer;
+  /* z-index: -1; */
 }
 
 .task details[open] summary::before {
