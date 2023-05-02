@@ -7,3 +7,28 @@
 #project-list ul {
   list-style: none;
 }
+#project-list li {
+  display: flex;
+}
+.project {
+  width: 100%;
+  padding: 0.25em;
+}
+.project::after {
+  content: attr(data-unfinished);
+
+  margin-inline-start: auto;
+
+  color: red;
+
+  animation: alert 1s infinite alternate linear;
+}
+
+@keyframes alert {
+  from {
+    scale: 0.85;
+  }
+  to {
+    scale: 1;
+  }
+}
