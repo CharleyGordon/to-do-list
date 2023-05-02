@@ -4,12 +4,34 @@ import pubsub from "../../pubsub/pubsub";
 import eventList from "../../../eventList";
 import { camelize } from "../../camelize";
 
+function setUnfinishedAmount(element, unfinishedAmount) {
+  debugger;
+  if (!element || !unfinishedAmount) return;
+  console.dir(`updating ${element}....`);
+  element.dataset.unfinished = unfinishedAmount;
+}
+
+export function updateUnfinishedAmount(projectObject) {
+  debugger;
+  console.dir("starting....");
+  if (!projectObject) return;
+  const { name } = projectObject;
+  console.dir(`searhing for ${name}....`);
+
+  const { unfinished } = projectObject;
+  const selector = `[data-project="${name}"]`;
+  console.dir("the selector is: ", selector);
+  const projectAnchor = document.querySelector(selector);
+  setUnfinishedAmount(projectAnchor, unfinished);
+}
+
 function createProjectListItem(projectProperties) {
-  const { name } = projectProperties;
+  const { name, unfinished } = projectProperties;
   const projectListItem = parseHtml(projectListItemTemplate);
   const anchor = projectListItem.querySelector("a");
   if (!anchor) return;
   anchor.dataset.project = `${name}`;
+  setUnfinishedAmount(anchor, unfinished);
   projectListItem.querySelector(".name").textContent = name;
   return projectListItem;
 }
@@ -48,7 +70,7 @@ export function renderProjectListItem(projectElement) {
 
 export function renderAllProjects(projectsElement) {
   clearProjectList();
-  projectsElement.forEach(function (projectElement) {
+  projectsElement.forEach((projectElement) => {
     renderProjectListItem(projectElement);
   });
 }

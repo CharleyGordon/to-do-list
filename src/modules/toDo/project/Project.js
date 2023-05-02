@@ -50,6 +50,7 @@ function updateUnfinishedTasks(projectObject) {
   const unfinishedTasksAmount = countUnfinishedTasks(projectObject);
   if (!projectObject) return;
   projectObject.unfinished = unfinishedTasksAmount;
+  pubsub.publish(eventList.unfinishedChanged, projectObject);
 }
 
 function updateAllUnfinishedTasks() {
