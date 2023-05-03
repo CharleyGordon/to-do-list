@@ -3,7 +3,7 @@
 }
 .task {
   overflow: hidden;
-  max-width: 400px;
+  width: min(400px, 70vw);
 
   justify-self: center;
 
@@ -63,9 +63,10 @@
   inset: 0;
 
   border-radius: 0.25vmax;
-  box-shadow: inset 4px 0 0 -1px var(--priority-color);
-  background-color: #888;
-  mix-blend-mode: color-burn;
+
+  outline: 1px solid var(--priority-color);
+  outline-offset: -1px;
+  box-shadow: inset 4px 0 0 -1px var(--priority-color), inset 0 0 1px 2px white;
   cursor: pointer;
   /* z-index: -1; */
 }

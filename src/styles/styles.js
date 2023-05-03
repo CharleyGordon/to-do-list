@@ -1,3 +1,6 @@
+// images
+import settingsImage from "../img/settings.svg";
+
 import hobbyOfNight from "../fonts/hobby-of-night/Hobby-of-night.ttf";
 import displayStyle from "./display.css";
 import contentStyle from "./content.css";

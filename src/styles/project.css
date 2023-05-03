@@ -11,12 +11,20 @@
 
   border-radius: var(--project-radius);
 
-  outline: 1px solid black;
-  background-color: var(--project-background-supplementary);
+  box-shadow: inset 1px 1px 3px 10px var(--project-background-secondary);
 
   transition: 0.5s;
 
   /* scale: 0; */
+}
+#project,
+#project .top-section {
+  background-color: var(--project-background);
+}
+#project .top-section {
+  padding: 0.5em;
+}
+#project .controls {
 }
 #project * {
   background-color: transparent;
@@ -33,9 +41,6 @@
 #project-name {
   color: var(--project-color-1);
 }
-#project .top-section {
-  background-color: var(--project-background-primary);
-}
 #project-name {
   padding-block: var(--project-padding-block);
   padding-inline: var(--project-padding-inline);
@@ -51,10 +56,7 @@
   color: var(--project-color-2);
 }
 #project .controls {
-  top: 2rem;
-
-  right: 1rem;
-  translate: 0 -100%;
+  margin-inline-start: auto;
   gap: 2ch;
   list-style: none;
 }
@@ -66,6 +68,8 @@
 #task-adder {
   /* justify-self: start; */
   margin-block-start: var(--task-adder-margin);
+  width: min(400px, 70vw);
+  justify-self: center;
   text-align: center;
 }
 label {
