@@ -9,16 +9,7 @@ const { projects } = storage;
 function uniqueProjectName(name) {
   return !projects.find((projectObject) => projectObject.name === name);
 }
-function project(propertiesObject) {
-  const { name, description } = propertiesObject;
-  if (!uniqueProjectName(name)) return;
-  const tasks = [];
-  return {
-    name,
-    description,
-    tasks,
-  };
-}
+
 function getProjectByName(projectName) {
   return projects.find((projectObject) => projectObject.name === projectName);
 }
@@ -40,7 +31,47 @@ function getProjectTasks(projectName) {
   return getProjectByName(projectName)?.tasks;
 }
 
+function unfinishedTask(taskObject) {
+  const { completed } = taskObject;
+  return completed === "false" || !completed;
+}
+
+function countUnfinishedTasks(projectObject) {
+  debugger;
+  const { name } = projectObject;
+  const tasks = getProjectTasks(name);
+  if (!tasks) return;
+  const UnfinishedTasks = tasks.filter(unfinishedTask);
+  return UnfinishedTasks.length;
+}
+
+function updateUnfinishedTasks(projectObject) {
+  debugger;
+  const unfinishedTasksAmount = countUnfinishedTasks(projectObject);
+  if (!projectObject) return;
+  projectObject.unfinished = unfinishedTasksAmount;
+  pubsub.publish(eventList.unfinishedChanged, projectObject);
+}
+
+function updateAllUnfinishedTasks() {
+  projects.forEach(updateUnfinishedTasks);
+}
+
+function project(propertiesObject) {
+  const { name, description } = propertiesObject;
+  const tasks = [];
+  const unfinished = 0;
+  if (!uniqueProjectName(name)) return;
+
+  return {
+    name,
+    description,
+    tasks,
+    unfinished,
+  };
+}
 function emittProjectsChanged(projectsObject) {
+  updateAllUnfinishedTasks();
   pubsub.publish(eventList.projectsChanged, projectsObject);
 }
 
@@ -62,10 +93,13 @@ export function addProject(propertiesObject) {
 }
 
 export function deleteProject(projectName) {
+  debugger;
   const searchedProjectIndex = getProjectIndexByName(projectName);
   if (searchedProjectIndex < 0) return;
   projects.splice(searchedProjectIndex, 1);
   emittProjectsChanged(projects);
+  pubsub.publish(eventList.projectDeleted);
+  pubsub.publish(eventList.DOM.renderProjects, projects);
 }
 
 function findTask(taskArray, searchedId) {
@@ -158,4 +192,26 @@ export function removeTask(projectName, taskId) {
   projectTasks.splice(targetProjectIndex, 1);
   emittProjectsChanged(projects);
   pubsub.publish(eventList.DOM.taskRemoved, taskId);
+}
+
+// change name of project
+function changeProjectName(oldName, newName) {
+  const project = getProjectByName(oldName);
+  if (!project || !uniqueProjectName(newName)) return;
+  project.name = newName;
+}
+// change description
+function changeProjectDescription(projectName, newDescription) {
+  debugger;
+  const project = getProjectByName(projectName);
+  if (!project || !newDescription) return;
+  project.description = newDescription;
+}
+
+export function changeProjectDetails(projectName, propertiesObject) {
+  const { name, description } = propertiesObject;
+  changeProjectName(projectName, name);
+  changeProjectDescription(projectName, description);
+  emittProjectsChanged(projects);
+  pubsub.publish(eventList.DOM.startProjectsRender);
 }

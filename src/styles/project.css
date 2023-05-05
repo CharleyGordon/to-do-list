@@ -1,55 +1,37 @@
-:root {
-  --project-gap: 2rem;
-  --project-padding: 2rem;
-  --project-radius: 1vmax;
-  --project-padding-block: calc(var(--project-padding) / 5);
-  --project-padding-inline: calc(var(--project-padding) / 8);
-
-  /* positions */
-
-  /* --description-translate-block: calc(var(--project-padding-block) + 110%); */
-  /* --task-adder-translate-block: calc(var(--description-translate-block) - 80%); */
-  /* colors */
-  /* --hue: 0;
-  --saturation: 0%;
-  --lightness: 0%;
-  --alpha: 0 */
-  --project-summary-height: 5rem;
-  --task-adder-margin: calc(
-    var(--project-summary-height) + calc(var(--project-gap) / 2)
-  );
-
-  --project-background-primary: #add8e6;
-  --project-background-secondary: #fffacd;
-  --project-background-supplementary: #98fb98;
-
-  --project-color-1: black;
-  --project-color-2: #006400;
-  --project-color-3: #708090;
-}
 #project {
-  width: min(90vw, 600px);
+  /* width: min(90vw, 600px); */
   /* height: min(80vh, 300px); */
-  place-self: center;
+  max-height: 80vh;
 
-  overflow: hidden;
+  overflow: auto;
 
   padding-inline: var(--project-padding);
+  padding-block: var(--project-padding-block);
   gap: var(--project-gap);
 
   border-radius: var(--project-radius);
 
-  outline: 1px solid black;
-  background-color: var(--project-background-supplementary);
+  box-shadow: inset 1px 1px 3px 10px var(--project-background-secondary);
 
   transition: 0.5s;
 
   /* scale: 0; */
 }
+#project,
+#project .top-section {
+  background-color: var(--project-background);
+}
+#project .top-section {
+  padding: 0.5em;
+}
+#project .controls {
+}
 #project * {
   background-color: transparent;
 
   font-weight: 700;
+}
+#project *:not(summary textarea) {
   color: var(--project-color-3);
 }
 #project-summary {
@@ -59,11 +41,9 @@
 #project-name {
   color: var(--project-color-1);
 }
-
 #project-name {
   padding-block: var(--project-padding-block);
   padding-inline: var(--project-padding-inline);
-  background-color: var(--project-background-primary);
 }
 
 #project-description {
@@ -76,15 +56,20 @@
   color: var(--project-color-2);
 }
 #project .controls {
-  top: 0;
-  right: 0;
-  translate: 0 -100%;
+  margin-inline-start: auto;
   gap: 2ch;
+  list-style: none;
+}
+
+#project .controls > form {
+  display: contents;
 }
 
 #task-adder {
   /* justify-self: start; */
   margin-block-start: var(--task-adder-margin);
+  width: min(400px, 70vw);
+  justify-self: center;
   text-align: center;
 }
 label {

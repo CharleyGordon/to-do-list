@@ -1,0 +1,49 @@
+:root {
+  /* fonts */
+
+  font-family: hobby-of-night;
+
+  text-shadow: 1px 1px 1px black;
+  /* content */
+  --content-background: #ffa07a;
+  --content-color: #d3d3d3;
+  --content-font-size: 1.25rem;
+  --content-font-weight: 900;
+
+  /* project */
+  --project-gap: 2rem;
+  --project-padding: 2rem;
+  --project-radius: 1vmax;
+  --project-padding-block: calc(var(--project-padding) / 5);
+  --project-padding-inline: calc(var(--project-padding) / 8);
+
+  /* positions */
+
+  --project-summary-height: 5rem;
+  --task-adder-margin: calc(
+    var(--project-summary-height) + calc(var(--project-gap) / 2)
+  );
+
+  --project-background-primary: #add8e6;
+  --project-background-secondary: #fffacd;
+  --project-background-supplementary: #98fb98;
+
+  --project-color-1: black;
+  --project-color-2: #006400;
+  --project-color-3: #708090;
+
+  /* task-list */
+  --task-summary-height: 2ch;
+  --task-summary-padding: 0.25rem;
+  --task-summary-max-height: calc(
+    var(--task-summary-height) + var(--task-summary-padding) * 2
+  );
+
+  /* task */
+  --priority-color: red;
+  --task-textarea-height: 2ch;
+
+  --task-label-font-size: 0.8rem;
+
+  /*  */
+}

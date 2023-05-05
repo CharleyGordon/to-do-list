@@ -3,6 +3,86 @@
 #content {
   display: grid;
 }
+
+#content {
+  max-height: 100vh;
+
+  padding: 1rem;
+
+  font-size: var(--content-font-size);
+  font-weight: var(--content-font-weight);
+  color: var(--content-color);
+  background-color: var(--content-background);
+}
+
+#project-adder {
+  position: absolute;
+  place-self: center;
+
+  scale: 0;
+}
+#content.add-project #project {
+  transition: scale 0.5s 0;
+  scale: 0;
+}
+#content button[name="add-project"]::before {
+  content: "Add project";
+}
+#content.add-project button[name="add-project"]::before {
+  content: "Back to projects";
+}
+#project {
+  transition: scale 0.5s 0.5s;
+}
+#project-adder {
+  transition: scale 0.5s 0s;
+}
+#content.add-project #project-adder {
+  transition: 0.5s 0.5s;
+  scale: 1;
+}
+
+:is(fieldset, button, input) {
+  border: none;
+  text-shadow: inherit;
+}
+:is(input, textarea) {
+  box-shadow: inset 1px -1px 1px black, -1px 1px 1px black;
+  border-radius: 0.25vmax;
+  padding: 0.25rem;
+}
+.task textarea {
+  box-shadow: none;
+}
+textarea {
+  border: none;
+  resize: none;
+}
+button {
+  text-transform: capitalize;
+}
+@media (min-width: 600px) {
+  #content {
+    grid-template-rows: 0.2fr 1fr 0.2fr;
+    grid-template-columns: 0.5fr repeat(2, 1fr);
+    column-gap: 2rem;
+    grid-template-areas:
+      "header header header"
+      "plist project project"
+      "footer footer footer";
+  }
+  #project-list {
+    grid-area: plist;
+  }
+  #project {
+    grid-area: project;
+  }
+  #project-adder {
+    grid-area: project;
+    position: static;
+    place-self: stretch;
+  }
+}
 /* #content > * {
   position: absolute;
 

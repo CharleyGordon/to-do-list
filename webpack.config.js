@@ -11,6 +11,7 @@ module.exports = {
     path: path.resolve(__dirname, "./dist"),
     filename: "[name].[contenthash].js",
     clean: true,
+    assetModuleFilename: "[name][ext]",
   },
 
   devtool: "inline-source-map",
@@ -33,6 +34,14 @@ module.exports = {
       {
         test: /\.html$/,
         use: ["html-loader"],
+      },
+      {
+        test: /\.(woff|woff2|ttf|otf|eot)$/,
+        type: "asset/resource",
+      },
+      {
+        test: /\.(svg|webp|jpg|jpeg|png)$/,
+        type: "asset/resource",
       },
     ],
   },

@@ -20,8 +20,11 @@ export default {
         projectFunctions.handleChangeTask,
         projectFunctions.markAsEditing,
         projectFunctions.saveChanges,
+        projectFunctions.bubbleRemoveProject,
+        projectFunctions.toggleConfigureProject,
       ],
       click: [projectFunctions.toggleCompletedState],
+      input: [projectFunctions.chageTaskPriority],
     },
   },
   task: {
@@ -43,7 +46,11 @@ export default {
   projectList: {
     markup: projectListTemplate,
     events: {
-      click: [projectListFunctions.requestProject],
+      click: [
+        projectListFunctions.requestProject,
+        projectListFunctions.expandProjectAdder,
+        projectListFunctions.markAsCurrent,
+      ],
     },
   },
   tasklist: {

@@ -1,5 +1,25 @@
+:root {
+  --task-textarea-height: 2ch;
+}
 .task {
   overflow: hidden;
+  width: min(400px, 70vw);
+
+  justify-self: center;
+
+  isolation: isolate;
+}
+.task[data-priority="1"] {
+  --priority-color: red;
+}
+.task[data-priority="2"] {
+  --priority-color: yellow;
+}
+.task[data-priority="3"] {
+  --priority-color: green;
+}
+.task[data-priority="4"] {
+  --priority-color: blue;
 }
 .task:not(.editing) :is([name="save"], [name="restore"]) {
   display: none;
@@ -9,17 +29,61 @@
 }
 .task summary {
   grid-template-columns: auto 1fr;
+  gap: 1ch;
   align-items: start;
 }
-.task label:first-of-type {
-  display: block;
-  /* display: grid; */
+.task :is(input, textarea, button) {
+  border: none;
+  max-height: fit-content;
 }
+.task textarea {
+  height: var(--task-textarea-height);
+}
+.task legend {
+  outline: none;
+}
+.task label:first-of-type {
+  display: grid;
+  align-items: center;
+  height: 100%;
+}
+.task label {
+  font-size: var(--task-label-font-size);
+}
+
+.task label :is(input, textarea) {
+  font-size: 1.5rem;
+}
+
 .task:not(.editing) summary::before {
   content: "";
   display: block;
   position: absolute;
   grid-column: 2;
   inset: 0;
-  border: 1px solid black;
+
+  border-radius: 0.25vmax;
+
+  outline: 1px solid var(--priority-color);
+  outline-offset: -1px;
+  box-shadow: inset 4px 0 0 -1px var(--priority-color), inset 0 0 1px 2px white;
+  cursor: pointer;
+  /* z-index: -1; */
+}
+
+.task details[open] summary::before {
+  border: none;
+  box-shadow: inset 1px 1px 1px red;
+}
+
+.task:not(.editing) summary::before,
+.task summary textarea {
+  max-width: 400px;
+}
+.task summary textarea {
+  text-align: center;
+  resize: none;
+  overflow: auto;
+  font-weight: 0.9rem;
+  color: white;
 }

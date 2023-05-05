@@ -1,14 +1,19 @@
-<section id="project" data-absolute>
-  <div id="project-summary" data-absolute data-grid>
-    <span id="project-name">Project name</span>
+<section id="project" data-relative>
+  <header id="project-summary" data-absolute data-grid>
+    <div class="top-section" data-flex data-align-items="center">
+      <span id="project-name">Project name</span>
+      <menu class="controls" data-flex>
+        <form>
+          <li>
+            <button type="submit" name="delete">Delete</button>
+          </li>
+          <li>
+            <button type="submit" name="change">change</button>
+          </li>
+        </form>
+      </menu>
+    </div>
+
     <span id="project-description">descrption</span>
-  </div>
-  <menu class="controls" data-flex data-absolute>
-    <li>
-      <button type="submit">Delete</button>
-    </li>
-    <li>
-      <button type="submit">Configure</button>
-    </li>
-  </menu>
+  </header>
 </section>
