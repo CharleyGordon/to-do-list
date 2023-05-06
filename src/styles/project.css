@@ -76,9 +76,3 @@ label {
 .controls.button {
   position: relative;
 }
-button[name="change"]::before {
-  content: "";
-  width: 20px;
-  aspect-ratio: 1;
-  /* background-image: url("./settings.svg"); */
-}

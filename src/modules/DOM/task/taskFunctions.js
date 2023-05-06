@@ -1,5 +1,6 @@
 import eventList from "../../../eventList";
 import pubsub from "../../pubsub/pubsub";
+import formatDate from "../../timeInternalization";
 
 const taskSelector = ".task";
 
@@ -14,7 +15,8 @@ export function removeTaskFromDom(taskId) {
 
 function updateTaskDueDate(taskElement, dateValue) {
   if (!taskElement || !dateValue) return;
-  taskElement.dataset.dueDate = dateValue;
+  const formattedDate = formatDate(dateValue);
+  taskElement.dataset.dueDate = formattedDate;
   console.log("date changed");
 }
 
@@ -28,6 +30,5 @@ function trackDueDate(targetElement) {
 
 export function setDueDate(event) {
   const { target } = event;
-  const { type } = target;
   trackDueDate(target);
 }

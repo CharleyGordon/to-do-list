@@ -1,6 +1,9 @@
 const language = navigator.language;
 
-const dateFormatter = new Intl.DateTimeFormat(language);
+const configObject = {
+  dateStyle: "full",
+};
+const dateFormatter = new Intl.DateTimeFormat(language, configObject);
 
 function convertToDate(dateString) {
   const date = new Date(dateString);
@@ -9,5 +12,5 @@ function convertToDate(dateString) {
 export default function formatDate(dateString) {
   const date = convertToDate(dateString);
   const formattedDate = dateFormatter.format(date);
-  return date;
+  return formattedDate;
 }

@@ -25,9 +25,13 @@ objective</textarea
       <label>
         Due Date: <input type="date" name="due-date" class="editable" readonly
       /></label>
-      <textarea name="note" class="editable" readonly>Note</textarea>
+      <label
+        >Note:
+
+        <textarea name="note" class="editable" readonly>Note</textarea>
+      </label>
       <form>
-        <fieldset>
+        <fieldset data-flex>
           <legend>Manage task:</legend>
           <button type="submit" name="remove">Remove task</button>
           <button type="submit" name="change-task">Change Task</button>

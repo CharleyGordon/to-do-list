@@ -59,7 +59,13 @@ textarea {
   resize: none;
 }
 button {
+  display: grid;
+  place-content: center;
   text-transform: capitalize;
+  cursor: pointer;
+  padding: 0.2em;
+  box-shadow: inset 1px 1px 2px #444;
+  border-radius: 0.5vmax;
 }
 @media (min-width: 600px) {
   #content {

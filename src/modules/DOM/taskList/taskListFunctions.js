@@ -1,6 +1,7 @@
 import DomElements from "../DomElements";
 import iterateEvents from "../../iterateEvents";
 import elementsComposition from "../elementsComposition";
+import formatDate from "../../timeInternalization";
 
 let taskListUl = document.getElementById("task-list");
 
@@ -33,9 +34,10 @@ export function renderTask(taskObject) {
   debugger;
   const { id, objective, priority, dueDate, note, completed } = taskObject;
   const currentTask = taskTemplate.cloneNode("true");
+  const formattedDate = formatDate(dueDate);
   iterateEvents(currentTask, taskEvents);
   currentTask.dataset.id = id;
-  currentTask.dataset.dueDate = dueDate;
+  currentTask.dataset.dueDate = formattedDate;
   currentTask.querySelector('[name="objective"]').value = objective;
   currentTask.querySelector('[name="priority"]').value = priority;
   currentTask.querySelector('[name="due-date"]').value = dueDate;
