@@ -117,6 +117,7 @@ function setFieldsAsReadOnly(fieldArray) {
 
 function decideAboutChange(fieldArray) {
   // debugger;
+  console.dir("deciding about taask change....");
   const areReadOnly = fieldsAreReadOnly(fieldArray);
   if (areReadOnly) return allowToEditFields(fieldArray);
   return setFieldsAsReadOnly(fieldArray);
@@ -130,6 +131,7 @@ function collectEditables(taskElement) {
 function toggleChange(taskElement) {
   debugger;
   if (!taskElement) return;
+  console.dir("starting toggleChange....");
   // toggleEditClass(taskElement);
   const editableFields = collectEditables(taskElement);
   return decideAboutChange(editableFields);
@@ -210,11 +212,11 @@ export function markAsEditing(event) {
   const submitter = getSubmitter(event);
   const { target } = event;
   const taskElement = getTaskElement(target);
-  if (
-    !submitter.matches(':is([name="change"], [name="save"], [name="restore"])')
-  ) {
+  console.dir(taskElement);
+  if (submitter.closest(".task") !== taskElement || !taskElement) {
     return;
   }
+  console.dir("toggling edit class");
   toggleEditClass(taskElement);
 }
 export function bubbleRemoveTask(event) {
@@ -228,7 +230,7 @@ export function handleChangeTask(event) {
   debugger;
   event.preventDefault();
   const subbmitter = getSubmitter(event);
-  if (subbmitter.name !== "change") return;
+  if (subbmitter.name !== "change-task") return;
   const taskElement = getTaskElement(subbmitter);
 
   toggleChange(taskElement);
@@ -310,6 +312,10 @@ export function bubbleRemoveProject(event) {
   const projectName = provideProjectName();
   pubsub.publish(eventList.DOM.projectBubbled, projectName);
 }
+function isInTask(targetElement, cssSelector = ".task") {
+  if (!targetElement) return;
+  return targetElement.closest(cssSelector);
+}
 
 function changeDeleteButtonName(button, buttonName) {
   debugger;
@@ -332,6 +338,8 @@ function toggleDeleteButton(event) {
   const { elements } = event.target;
   const deleteButton = elements["delete"] ?? elements["undo"];
   const deleteButtonName = deleteButton?.name;
+  const buttonInTask = isInTask(deleteButton);
+  if (buttonInTask) return;
   changeDeleteButtonName(deleteButton, deleteButtonName);
 }
 
@@ -345,6 +353,8 @@ function getSaveButton(event) {
 function toggleChangeButton(event) {
   debugger;
   const [saveButton, saveButtonName] = getSaveButton(event);
+  const buttonIntask = isInTask(saveButton);
+  if (buttonIntask) return;
   changeChangeButtonName(saveButton, saveButtonName);
 }
 

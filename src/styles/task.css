@@ -2,10 +2,12 @@
   --task-textarea-height: 2ch;
 }
 .task {
-  overflow: hidden;
   width: min(400px, 70vw);
 
+  overflow: hidden;
+
   justify-self: center;
+  position: relative;
 
   isolation: isolate;
 }
@@ -81,9 +83,19 @@
   max-width: 400px;
 }
 .task summary textarea {
-  text-align: center;
+  text-align: start;
+  text-indent: 2ch;
   resize: none;
   overflow: auto;
   font-weight: 0.9rem;
   color: white;
+}
+
+.task:not([data-completed="true"])::after {
+  font-size: 0.6em;
+  content: "expires " attr(data-due-date);
+  position: absolute;
+  place-self: start end;
+  padding: 0.1em 0.3em;
+  /* translate: 0 -100%; */
 }

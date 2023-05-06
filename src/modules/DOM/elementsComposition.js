@@ -29,7 +29,9 @@ export default {
   },
   task: {
     markup: taskTemlate,
-    events: {},
+    events: {
+      input: [taskFunctions.setDueDate],
+    },
   },
   projectAdder: {
     markup: projectAdderTemplate, // const projectAdder = p
