@@ -40,8 +40,8 @@ function createTaskListElement() {
   return taskSection;
 }
 
-function setinitialButtonNames(element) {
-  const buttons = Array.from(element.querySelectorAll("button"));
+function setInitialButtonNames(element) {
+  const buttons = Array.from(element.querySelectorAll(".controls button"));
   buttons.forEach((button) => {
     button.dataset.initialValue = button.name;
   });
@@ -52,9 +52,10 @@ function createProjectElement() {
   const eventsObject = elementsComposition.project.events;
   const project = parseHtml(markup);
   iterateEvents(project, eventsObject);
-  setinitialButtonNames(project);
   const taskAdder = createTaskAdderElement();
   const taskList = createTaskListElement();
+  setInitialButtonNames(project);
+
   project.append(taskAdder);
   project.append(taskList);
   return project;

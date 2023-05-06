@@ -28,6 +28,8 @@
 
 .project.current {
   filter: hue-rotate(-10deg);
+
+  pointer-events: none;
 }
 
 .project::before {

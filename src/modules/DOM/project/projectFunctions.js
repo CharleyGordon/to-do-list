@@ -44,9 +44,10 @@ function serializeProjectProperties() {
 }
 
 function preserveOriginalButtonNames(element) {
-  const buttons = Array.from(element.querySelectorAll("button"));
+  const buttons = Array.from(element.querySelectorAll(".controls button"));
   if (!buttons?.length) return;
   buttons.forEach((button) => {
+    if (!button.dataset.initialValue) return;
     button.name = button.textContent = button.dataset.initialValue;
   });
 }
@@ -392,4 +393,5 @@ export function toggleConfigureProject(event) {
   toggleDeleteButton(event);
   toggleChangeButton(event);
   toggleProjectEdit();
+  pubsub.publish(eventList.DOM.focusOnProject, project);
 }

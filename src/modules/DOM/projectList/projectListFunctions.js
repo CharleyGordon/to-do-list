@@ -37,8 +37,12 @@ function hasName(target) {
 function toggleAddClass(target) {
   const camelName = camelize(target.name);
   if (camelName !== "addProject") return;
-  const content = target.closest("#content");
+  const content = document.getElementById("content");
   content.classList.toggle(target.name);
+}
+function removeAddProject(cssClass = "add-project") {
+  const content = document.getElementById("content");
+  content.classList.remove(cssClass);
 }
 function toggleAddProject(event) {
   debugger;
@@ -62,11 +66,18 @@ export function renderProjectListItem(projectElement) {
   projectList.append(projectListItem);
 }
 
-export function renderAllProjects(projectsElement) {
-  clearProjectList();
-  projectsElement.forEach((projectElement) => {
-    renderProjectListItem(projectElement);
-  });
+function saveCurrentIndicator(selector = ".current") {
+  const current = document.querySelector(selector);
+  return current?.dataset.project;
+}
+
+function restoreCurrentIndicator(projectDataset, cssClass = "current") {
+  if (!projectDataset) return;
+  const listElement = document.querySelector(
+    `[data-project="${projectDataset}"]`
+  );
+  if (!listElement) return;
+  listElement.classList.add(cssClass);
 }
 
 function removeCurrent(selector, cssClass = "current") {
@@ -78,23 +89,40 @@ function removeCurrent(selector, cssClass = "current") {
 }
 
 function markProject(element, cssClass = "current") {
-  console.dir(element);
+  // console.dir(element);
   element.classList.add(cssClass);
 }
 
-export function markAsCurrent(event) {
+export function focusOnCurrent(targetElement) {
   debugger;
-  event.preventDefault();
-  const { target } = event;
-  const project = target.closest(".project");
-  if (!project) return;
+  const project = targetElement.closest(".project");
+  const projectSection = targetElement.closest("#project");
+  if (!project || projectSection) return;
+  removeAddProject();
   removeCurrent(".project");
   markProject(project);
 }
 
+export function markAsCurrent(event) {
+  console.log("mark fired");
+  debugger;
+  event.preventDefault();
+  const { target } = event;
+  focusOnCurrent(target);
+}
+
+export function renderAllProjects(projectsElement) {
+  console.log("reRendering...");
+  const targetDataset = saveCurrentIndicator();
+  clearProjectList();
+  projectsElement.forEach((projectElement) => {
+    renderProjectListItem(projectElement);
+  });
+  restoreCurrentIndicator(targetDataset);
+}
+
 export function requestProject(event) {
   event.preventDefault();
-
   debugger;
   const { target } = event;
   const anchor = target.closest("a");
@@ -105,7 +133,7 @@ export function requestProject(event) {
 
 export function appendProjectToList(projectElement) {
   debugger;
-  const projectList = document.getElementById("project-list");
+  const projectList = document.querySelector(".project-list");
   const projectListItem = createProjectListItem(projectElement);
   projectList.append(projectListItem);
 }

@@ -61,7 +61,8 @@ function project(propertiesObject) {
   const { name, description } = propertiesObject;
   const tasks = [];
   const unfinished = 0;
-  if (!uniqueProjectName(name)) return;
+  if (!uniqueProjectName(name))
+    return alert("project name isn't unique! Project not added!");
 
   return {
     name,
