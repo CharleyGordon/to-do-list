@@ -83,6 +83,7 @@ function markProject(element, cssClass = "current") {
 }
 
 export function markAsCurrent(event) {
+  debugger;
   event.preventDefault();
   const { target } = event;
   const project = target.closest(".project");

@@ -43,15 +43,24 @@ function serializeProjectProperties() {
   };
 }
 
+function preserveOriginalButtonNames(element) {
+  const buttons = Array.from(element.querySelectorAll("button"));
+  if (!buttons?.length) return;
+  buttons.forEach((button) => {
+    button.name = button.textContent = button.dataset.initialValue;
+  });
+}
+
 export function renderProject(projectObject) {
   debugger;
   const { name, description, tasks } = projectObject;
   project.dataset.project = name;
   projectNameField.textContent = name;
   projectDescriptionField.textContent = description;
-  setInitialProjectValues();
   const connected = projectConnected();
   const content = document.querySelector("#content");
+  setInitialProjectValues();
+  preserveOriginalButtonNames(project);
   if (!connected) content.append(project);
   pubsub.publish(eventList.DOM.projectRendered, tasks);
 }

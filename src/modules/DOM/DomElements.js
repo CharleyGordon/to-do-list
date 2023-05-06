@@ -39,11 +39,20 @@ function createTaskListElement() {
   iterateEvents(taskSection, eventsObject);
   return taskSection;
 }
+
+function setinitialButtonNames(element) {
+  const buttons = Array.from(element.querySelectorAll("button"));
+  buttons.forEach((button) => {
+    button.dataset.initialValue = button.name;
+  });
+}
+
 function createProjectElement() {
   const markup = elementsComposition.project.markup;
   const eventsObject = elementsComposition.project.events;
   const project = parseHtml(markup);
   iterateEvents(project, eventsObject);
+  setinitialButtonNames(project);
   const taskAdder = createTaskAdderElement();
   const taskList = createTaskListElement();
   project.append(taskAdder);
