@@ -93,13 +93,18 @@ textarea[name="note"] {
   overflow: auto;
   color: white;
 }
-
 .task:not([data-completed="true"])::after {
-  font-size: 0.6em;
   content: "expires " attr(data-due-date);
+  color: red;
+}
+
+.task::after {
+  content: "completed";
   position: absolute;
   place-self: start end;
   padding: 0.1em 0.3em;
+  font-size: 1ch;
+  color: green;
 }
 
 .task [name="completed-placeholder"] {
@@ -114,7 +119,7 @@ textarea[name="note"] {
   position: absolute;
   inset: 10%;
   place-self: center;
-  background-color: white;
+  background-color: red;
   clip-path: polygon(
     0% 0%,
     0% 100%,
@@ -146,6 +151,7 @@ textarea[name="note"] {
     0% 35%,
     35% 35%
   );
+  background-color: green;
 }
 .task fieldset {
   gap: 0.5em;

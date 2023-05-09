@@ -204,7 +204,7 @@ function collectEditableProperties(event) {
 //   }
 // }
 
-//event functions
+// event functions
 function getSubmitter(event) {
   return event.submitter;
 }
@@ -265,21 +265,35 @@ export function saveChanges(event) {
 
 // }
 // export function approveTask
+function uncompleteDomTask(checkboxElement, completedAttribute = "completed") {
+  const taskElement = getTaskElement(checkboxElement);
+  if (!taskElement) return;
+  taskElement.dataset[completedAttribute] = "false";
+}
+function completeDomTask(checkboxElement, completedAttribute = "completed") {
+  const taskElement = getTaskElement(checkboxElement);
+  if (!taskElement) return;
+  taskElement.dataset[completedAttribute] = "true";
+}
 function findCompletedCheckbox(targetElement) {
   debugger;
   const taskElement = getTaskElement(targetElement);
   if (!taskElement) return;
-  const checkbox = taskElement.querySelector(`[name="completed"]`);
+  const checkbox = taskElement.querySelector('[name="completed"]');
   return checkbox;
 }
 export function toggleCompletedState(event) {
   debugger;
   const { target } = event;
-  const currentCheckbox = target.closest(`[type="checkbox"]`);
+  const currentCheckbox = target.closest('[type="checkbox"]');
   const checkbox = findCompletedCheckbox(target);
   if (!currentCheckbox || !checkbox) return;
   checkbox.value = false;
-  if (currentCheckbox.checked) checkbox.value = true;
+  uncompleteDomTask(currentCheckbox);
+  if (currentCheckbox.checked) {
+    checkbox.value = true;
+    completeDomTask(currentCheckbox);
+  }
   emittTaskChanged(event);
 }
 
@@ -336,7 +350,7 @@ function changeChangeButtonName(button, buttonName) {
 function toggleDeleteButton(event) {
   debugger;
   const { elements } = event.target;
-  const deleteButton = elements["delete"] ?? elements["undo"];
+  const deleteButton = elements.delete ?? elements.undo;
   const deleteButtonName = deleteButton?.name;
   const buttonInTask = isInTask(deleteButton);
   if (buttonInTask) return;
@@ -345,7 +359,7 @@ function toggleDeleteButton(event) {
 
 function getSaveButton(event) {
   const { elements } = event.target;
-  const saveButton = elements["change"] ?? elements["save"];
+  const saveButton = elements.change ?? elements.save;
   const saveButtonName = saveButton?.name;
   return [saveButton, saveButtonName];
 }
