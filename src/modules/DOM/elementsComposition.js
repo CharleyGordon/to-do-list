@@ -34,7 +34,7 @@ export default {
     },
   },
   projectAdder: {
-    markup: projectAdderTemplate, // const projectAdder = p
+    markup: projectAdderTemplate,
     events: {
       submit: [projectAdderFunctions.requestAddProject],
     },

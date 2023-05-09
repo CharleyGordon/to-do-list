@@ -5,8 +5,9 @@ import eventList from "../../../eventList";
 import { camelize } from "../../camelize";
 
 function setUnfinishedAmount(element, unfinishedAmount) {
-  if (!element || !unfinishedAmount) return;
+  if (!element || (!unfinishedAmount && unfinishedAmount !== 0)) return;
   element.dataset.unfinished = unfinishedAmount;
+  if (unfinishedAmount === 0) element.removeAttribute("data-unfinished");
 }
 
 export function updateUnfinishedAmount(projectObject) {
@@ -45,7 +46,6 @@ function removeAddProject(cssClass = "add-project") {
   content.classList.remove(cssClass);
 }
 function toggleAddProject(event) {
-  debugger;
   const { target } = event;
   if (!hasName(target)) return;
   toggleAddClass(target);
@@ -60,7 +60,6 @@ function clearProjectList() {
 }
 
 export function renderProjectListItem(projectElement) {
-  debugger;
   const projectList = document.querySelector(".project-list");
   const projectListItem = createProjectListItem(projectElement);
   projectList.append(projectListItem);
@@ -89,12 +88,10 @@ function removeCurrent(selector, cssClass = "current") {
 }
 
 function markProject(element, cssClass = "current") {
-  // console.dir(element);
   element.classList.add(cssClass);
 }
 
 export function focusOnCurrent(targetElement) {
-  debugger;
   const project = targetElement.closest(".project");
   const projectSection = targetElement.closest("#project");
   if (!project || projectSection) return;
@@ -105,7 +102,6 @@ export function focusOnCurrent(targetElement) {
 
 export function markAsCurrent(event) {
   console.log("mark fired");
-  debugger;
   event.preventDefault();
   const { target } = event;
   focusOnCurrent(target);
@@ -123,7 +119,6 @@ export function renderAllProjects(projectsElement) {
 
 export function requestProject(event) {
   event.preventDefault();
-  debugger;
   const { target } = event;
   const anchor = target.closest("a");
   if (!anchor) return;
@@ -132,7 +127,6 @@ export function requestProject(event) {
 }
 
 export function appendProjectToList(projectElement) {
-  debugger;
   const projectList = document.querySelector(".project-list");
   const projectListItem = createProjectListItem(projectElement);
   projectList.append(projectListItem);

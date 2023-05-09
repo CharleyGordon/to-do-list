@@ -16,7 +16,6 @@ function hideTaskAdder(targetElement) {
 }
 
 export function requestAddTask(event) {
-  debugger;
   event.preventDefault();
   const { target } = event;
   const priorityField = document.getElementById("priority");

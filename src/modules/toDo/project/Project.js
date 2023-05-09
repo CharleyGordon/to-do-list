@@ -21,7 +21,6 @@ function getProjectIndexByName(projectName) {
 }
 
 export function provideSearchedProject(projectName) {
-  debugger;
   const project = getProjectByName(projectName);
   if (!project) return;
   pubsub.publish(eventList.DOM.projectFound, project);
@@ -37,7 +36,6 @@ function unfinishedTask(taskObject) {
 }
 
 function countUnfinishedTasks(projectObject) {
-  debugger;
   const { name } = projectObject;
   const tasks = getProjectTasks(name);
   if (!tasks) return;
@@ -46,7 +44,6 @@ function countUnfinishedTasks(projectObject) {
 }
 
 function updateUnfinishedTasks(projectObject) {
-  debugger;
   const unfinishedTasksAmount = countUnfinishedTasks(projectObject);
   if (!projectObject) return;
   projectObject.unfinished = unfinishedTasksAmount;
@@ -61,8 +58,9 @@ function project(propertiesObject) {
   const { name, description } = propertiesObject;
   const tasks = [];
   const unfinished = 0;
-  if (!uniqueProjectName(name))
+  if (!uniqueProjectName(name)) {
     return alert("project name isn't unique! Project not added!");
+  }
 
   return {
     name,
@@ -85,7 +83,6 @@ export function emittRenderProjects() {
 }
 
 export function addProject(propertiesObject) {
-  debugger;
   const projectObject = project(propertiesObject);
   if (!projectObject) return;
   projects.push(projectObject);
@@ -94,7 +91,6 @@ export function addProject(propertiesObject) {
 }
 
 export function deleteProject(projectName) {
-  debugger;
   const searchedProjectIndex = getProjectIndexByName(projectName);
   if (searchedProjectIndex < 0) return;
   projects.splice(searchedProjectIndex, 1);
@@ -116,7 +112,6 @@ function findTaskIndex(taskArray, searchedId) {
   });
 }
 function findTaskInProject(projectName, taskId) {
-  debugger;
   const taskArray = getProjectTasks(projectName);
   if (!taskArray) return;
   const targetTask = findTask(taskArray, taskId);
@@ -131,7 +126,6 @@ function findTaskIndexInProject(projectName, taskId) {
 }
 
 export function addTask(projectName, taskProperties) {
-  debugger;
   const projectTasks = getProjectTasks(projectName);
   const newTask = Task.createTask(taskProperties);
   projectTasks.push(newTask);
@@ -140,9 +134,6 @@ export function addTask(projectName, taskProperties) {
 }
 
 export function changeTaskPriority(projectName, taskId, taskPriority) {
-  debugger;
-  // const projectTasks = getProjectTasks(projectName);
-  // const searchedTask = findTask(projectTasks, taskId);
   const searchedTask = findTaskInProject(projectName, taskId);
   if (!searchedTask) return;
   Task.changeTaskPriority(searchedTask, taskPriority);
@@ -178,7 +169,6 @@ export function changeTaskObjective(projectName, taskId, newTaskObjective) {
 }
 
 export function replaceTask(projectName, taskId, taskObject) {
-  debugger;
   const task = findTaskInProject(projectName, taskId);
   if (!task) return;
   Object.assign(task, taskObject);
@@ -186,7 +176,6 @@ export function replaceTask(projectName, taskId, taskObject) {
 }
 
 export function removeTask(projectName, taskId) {
-  debugger;
   const projectTasks = getProjectTasks(projectName);
   const targetProjectIndex = findTaskIndexInProject(projectName, taskId);
   if (targetProjectIndex < 0 || !projectTasks) return;
@@ -203,7 +192,6 @@ function changeProjectName(oldName, newName) {
 }
 // change description
 function changeProjectDescription(projectName, newDescription) {
-  debugger;
   const project = getProjectByName(projectName);
   if (!project || !newDescription) return;
   project.description = newDescription;

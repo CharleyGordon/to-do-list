@@ -94,8 +94,9 @@ textarea[name="note"] {
   color: white;
 }
 .task:not([data-completed="true"])::after {
-  content: "expires " attr(data-due-date);
+  content: attr(data-due-date);
   color: red;
+  opacity: 0.5;
 }
 
 .task::after {
@@ -113,6 +114,7 @@ textarea[name="note"] {
   width: 20px;
   aspect-ratio: 1;
   appearance: none;
+  cursor: pointer;
 }
 .task [name="completed-placeholder"]::after {
   content: "";

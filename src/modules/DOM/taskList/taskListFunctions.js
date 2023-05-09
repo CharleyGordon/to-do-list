@@ -60,7 +60,3 @@ export function renderAllTasks(tasksArray) {
   if (tasksArray.length === 0) return;
   tasksArray.forEach(renderTask);
 }
-
-// export function appendToTaskList(taskObject) {
-
-// }

@@ -9,7 +9,7 @@ function createContentElement() {
 }
 
 function createProjectAdderElement() {
-  const markup = elementsComposition.projectAdder.markup;
+  const { markup } = elementsComposition.projectAdder;
   const eventsObject = elementsComposition.projectAdder.events;
   const projectAdder = parseHtml(markup);
   iterateEvents(projectAdder, eventsObject);
@@ -17,7 +17,7 @@ function createProjectAdderElement() {
 }
 
 function createTaskElement() {
-  const markup = elementsComposition.task.markup;
+  const { markup } = elementsComposition.task;
   const eventsObject = elementsComposition.task.events;
   const task = parseHtml(markup);
   iterateEvents(task, eventsObject);
@@ -25,7 +25,7 @@ function createTaskElement() {
 }
 
 function createTaskAdderElement() {
-  const markup = elementsComposition.taskAdder.markup;
+  const { markup } = elementsComposition.taskAdder;
   const eventsObject = elementsComposition.taskAdder.events;
   const taskAdder = parseHtml(markup);
   iterateEvents(taskAdder, eventsObject);
@@ -33,7 +33,7 @@ function createTaskAdderElement() {
 }
 
 function createTaskListElement() {
-  const markup = elementsComposition.tasklist.markup;
+  const { markup } = elementsComposition.tasklist;
   const eventsObject = elementsComposition.tasklist.events;
   const taskSection = parseHtml(markup);
   iterateEvents(taskSection, eventsObject);
@@ -48,7 +48,7 @@ function setInitialButtonNames(element) {
 }
 
 function createProjectElement() {
-  const markup = elementsComposition.project.markup;
+  const { markup } = elementsComposition.project;
   const eventsObject = elementsComposition.project.events;
   const project = parseHtml(markup);
   iterateEvents(project, eventsObject);
@@ -62,7 +62,7 @@ function createProjectElement() {
 }
 
 function createProjectListElement() {
-  const markup = elementsComposition.projectList.markup;
+  const { markup } = elementsComposition.projectList;
   const eventsObject = elementsComposition.projectList.events;
   const projectList = parseHtml(markup);
   iterateEvents(projectList, eventsObject);
@@ -73,7 +73,6 @@ export default {
   content: createContentElement(),
   project: createProjectElement(),
   projectAdder: createProjectAdderElement(),
-  // taskAdder: createTaskAdderElement(),
   projectList: createProjectListElement(),
   taskList: createTaskListElement(),
   task: createTaskElement(),

@@ -6,7 +6,6 @@ import { camelize } from "../../camelize";
 const { project } = DomElements;
 const projectNameField = project.querySelector("#project-name");
 const projectDescriptionField = project.querySelector("#project-description");
-// const { taskList } = DomElements;
 
 function provideProjectName() {
   return project.dataset.project;
@@ -53,7 +52,6 @@ function preserveOriginalButtonNames(element) {
 }
 
 export function renderProject(projectObject) {
-  debugger;
   const { name, description, tasks } = projectObject;
   project.dataset.project = name;
   projectNameField.textContent = name;
@@ -67,7 +65,6 @@ export function renderProject(projectObject) {
 }
 
 export function approveTask(taskProperties) {
-  // debugger;
   const projectName = provideProjectName();
   if (!projectName) return;
   pubsub.publish(eventList.DOM.addTask, projectName, taskProperties);
@@ -93,7 +90,6 @@ function getTaskElementId(targetElement) {
 }
 
 function startBubbleTask(targetElement) {
-  // debugger;
   const taskId = getTaskElementId(targetElement);
   if (!taskId) return;
   pubsub.publish(eventList.DOM.taskBubbled, taskId);
@@ -116,7 +112,6 @@ function setFieldsAsReadOnly(fieldArray) {
 }
 
 function decideAboutChange(fieldArray) {
-  // debugger;
   console.dir("deciding about taask change....");
   const areReadOnly = fieldsAreReadOnly(fieldArray);
   if (areReadOnly) return allowToEditFields(fieldArray);
@@ -129,10 +124,8 @@ function collectEditables(taskElement) {
 }
 
 function toggleChange(taskElement) {
-  debugger;
   if (!taskElement) return;
   console.dir("starting toggleChange....");
-  // toggleEditClass(taskElement);
   const editableFields = collectEditables(taskElement);
   return decideAboutChange(editableFields);
 }
@@ -150,19 +143,7 @@ export function queryRemoveTask(providedId) {
   pubsub.publish(eventList.DOM.removeTask, projectName, taskId);
 }
 
-// function fieldChanged(field) {
-//   return field.value !== field.dataset.initialValue;
-// }
-
-// function collectChangedFields(fieldArray) {
-//   return fieldArray.reduce((accumulator, fieldElement) => {
-//     if (fieldChanged(fieldElement)) accumulator.push(fieldElement);
-//     return accumulator;
-//   });
-// }
-// up to this works
 function returnTaskEditables(event) {
-  debugger;
   const { target } = event;
   const taskElement = getTaskElement(target);
   const editables = collectEditables(taskElement);
@@ -184,27 +165,11 @@ function getFieldsValues(changedFields) {
   return changedValues;
 }
 function collectEditableProperties(event) {
-  debugger;
   const editables = returnTaskEditables(event);
   const properties = getFieldsValues(editables);
   return properties;
 }
 
-// function trackChanges(event) {
-//   debugger;
-//   try {
-//     const { target } = event;
-//     const taskElement = getTaskElement(target);
-//     const editables = collectEditables(taskElement);
-//     const changedFields = collectChangedFields(editables);
-//     const changedValues = getChangedFieldsValues(changedFields);
-//     return changedValues;
-//   } catch {
-//     return false;
-//   }
-// }
-
-// event functions
 function getSubmitter(event) {
   return event.submitter;
 }
@@ -221,13 +186,11 @@ export function markAsEditing(event) {
 }
 export function bubbleRemoveTask(event) {
   event.preventDefault();
-  // debugger;
   const subbmitter = getSubmitter(event);
   if (subbmitter.name !== "remove") return;
   startBubbleTask(subbmitter);
 }
 export function handleChangeTask(event) {
-  debugger;
   event.preventDefault();
   const subbmitter = getSubmitter(event);
   if (subbmitter.name !== "change-task") return;
@@ -237,7 +200,6 @@ export function handleChangeTask(event) {
   console.log("task readonly state changed");
 }
 function emittTaskChanged(event) {
-  debugger;
   const { target } = event;
   const taskElement = getTaskElement(target);
   if (!taskElement) return;
@@ -248,23 +210,12 @@ function emittTaskChanged(event) {
 }
 export function saveChanges(event) {
   event.preventDefault();
-  debugger;
   const subbmitter = getSubmitter(event);
   if (subbmitter.name !== "save") return;
-  // const taskElement = getTaskElement(subbmitter);
-  // const taskId = getTaskId(taskElement);
-  // const projectName = provideProjectName();
-  // const newProperties = collectEditableProperties(event);
-  // pubsub.publish(eventList.DOM.taskChanged, projectName, taskId, newProperties);
+
   emittTaskChanged(event);
 }
 
-// export function saveChanges(event) {
-//   const changesObject = trackChanges(event);
-//   if (!changesObject) return;
-
-// }
-// export function approveTask
 function uncompleteDomTask(checkboxElement, completedAttribute = "completed") {
   const taskElement = getTaskElement(checkboxElement);
   if (!taskElement) return;
@@ -276,14 +227,12 @@ function completeDomTask(checkboxElement, completedAttribute = "completed") {
   taskElement.dataset[completedAttribute] = "true";
 }
 function findCompletedCheckbox(targetElement) {
-  debugger;
   const taskElement = getTaskElement(targetElement);
   if (!taskElement) return;
   const checkbox = taskElement.querySelector('[name="completed"]');
   return checkbox;
 }
 export function toggleCompletedState(event) {
-  debugger;
   const { target } = event;
   const currentCheckbox = target.closest('[type="checkbox"]');
   const checkbox = findCompletedCheckbox(target);
@@ -306,7 +255,6 @@ function getPriority(target) {
   return target.value;
 }
 export function chageTaskPriority(event) {
-  debugger;
   const { target } = event;
   const taskElement = getTaskElement(target);
   const priorityLevel = getPriority(target);
@@ -320,7 +268,6 @@ export function removeProject() {
 
 export function bubbleRemoveProject(event) {
   event.preventDefault();
-  debugger;
   const { submitter } = event;
   if (submitter.name !== "delete") return;
   const projectName = provideProjectName();
@@ -332,7 +279,6 @@ function isInTask(targetElement, cssSelector = ".task") {
 }
 
 function changeDeleteButtonName(button, buttonName) {
-  debugger;
   if (!button || !buttonName) return;
   if (buttonName === "delete") {
     button.name = button.textContent = "undo";
@@ -340,7 +286,6 @@ function changeDeleteButtonName(button, buttonName) {
 }
 
 function changeChangeButtonName(button, buttonName) {
-  debugger;
   if (!button || !buttonName) return;
   if (buttonName === "change") {
     button.name = button.textContent = "save";
@@ -348,7 +293,6 @@ function changeChangeButtonName(button, buttonName) {
 }
 
 function toggleDeleteButton(event) {
-  debugger;
   const { elements } = event.target;
   const deleteButton = elements.delete ?? elements.undo;
   const deleteButtonName = deleteButton?.name;
@@ -365,7 +309,6 @@ function getSaveButton(event) {
 }
 
 function toggleChangeButton(event) {
-  debugger;
   const [saveButton, saveButtonName] = getSaveButton(event);
   const buttonIntask = isInTask(saveButton);
   if (buttonIntask) return;
@@ -373,28 +316,24 @@ function toggleChangeButton(event) {
 }
 
 function allowProjectEdit() {
-  debugger;
   console.dir("allowing...");
   projectNameField.setAttribute("contenteditable", "true");
   projectDescriptionField.setAttribute("contenteditable", "true");
 }
 
 function prohibitProjectEdit() {
-  debugger;
   console.dir("prohibiting...");
   projectNameField.removeAttribute("contenteditable");
   projectDescriptionField.removeAttribute("contenteditable");
 }
 
 function toggleProjectEdit() {
-  debugger;
   const isEditable = projectNameField.getAttribute("contentEditable");
   if (isEditable !== "true") return allowProjectEdit();
   return prohibitProjectEdit();
 }
 
 function resetProjectDetails(event) {
-  debugger;
   const { submitter } = event;
   const { name } = submitter;
   if (name !== "undo") return;
@@ -402,7 +341,6 @@ function resetProjectDetails(event) {
 }
 
 function bubbleChangeProjectDetails(event) {
-  debugger;
   const projectName = provideProjectName();
   const [saveButton, ...other] = getSaveButton(event);
   const properyObject = serializeProjectProperties();

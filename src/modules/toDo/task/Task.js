@@ -12,7 +12,6 @@ export function createTask(taskProperties) {
   };
 }
 export function changeTaskObjective(taskObject, newObjective) {
-  debugger;
   taskObject.objective = newObjective;
 }
 
